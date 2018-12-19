@@ -3,6 +3,7 @@ package io.chirpbot.twitchdev;
 import io.chirpbot.twitchdev.commands.CommandList;
 import io.chirpbot.twitchdev.handlers.MessageHandler;
 import io.chirpbot.twitchdev.handlers.RankHandler;
+import io.chirpbot.twitchdev.handlers.ReadyHandler;
 import io.chirpbot.twitchdev.secret.Secret;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +27,7 @@ public class TwitchDev {
 			dispatcher.registerListener(new MessageHandler());
 			//dispatcher.registerListener(new AutoMod());
 			dispatcher.registerListener(new RankHandler());
+			dispatcher.registerListener(new ReadyHandler());
 		} else {
 			throw new NullPointerException("Failed to initialize bot");
 		}
