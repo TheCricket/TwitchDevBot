@@ -5,13 +5,17 @@ import java.util.List;
 
 public class CommandList {
 
-	private List<ICommand> commands = new ArrayList<>();
+	private static List<ICommand> commands = new ArrayList<>();
 
 	public CommandList() {
 		commands.add(new CommandEvents());
+		commands.add(new CommandDocs());
+		commands.add(new CommandGithub());
+		commands.add(new CommandListCommands());
+		commands.add(new CommandTest());
 	}
 
-	public List<ICommand> getCommandList() {
+	public static List<ICommand> getCommandList() {
 		return commands;
 	}
 }

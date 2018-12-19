@@ -10,11 +10,10 @@ public class RankHandler {
 
 	@EventSubscriber
 	public void onReady(ReadyEvent event) {
+
 		IGuild twitch = TwitchDev.getBot().getGuildByID(504015559252377601L);
 		for (IUser user : twitch.getUsers()) {
-			System.out.println(twitch.getRoles());
-
-			//if(user.getRolesForGuild(twitch).contains())
+			user.getRolesForGuild(twitch).forEach(r -> System.out.println(String.format("%s has %s", user.getName(), r.getName())));
 		}
 	}
 }

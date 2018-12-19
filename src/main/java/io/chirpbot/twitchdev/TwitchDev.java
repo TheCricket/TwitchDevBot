@@ -1,8 +1,6 @@
 package io.chirpbot.twitchdev;
 
-import io.chirpbot.twitchdev.amazon.AWS;
 import io.chirpbot.twitchdev.commands.CommandList;
-import io.chirpbot.twitchdev.handlers.AutoMod;
 import io.chirpbot.twitchdev.handlers.MessageHandler;
 import io.chirpbot.twitchdev.handlers.RankHandler;
 import io.chirpbot.twitchdev.secret.Secret;
@@ -19,7 +17,6 @@ public class TwitchDev {
 	private static final boolean login = true;
 	private static IDiscordClient bot;
 	private static final Logger logger = LoggerFactory.getLogger(TwitchDev.class);
-	public static AWS aws = new AWS();
 	public static CommandList commands = new CommandList();
 
 	public static void main(String[] args) {
@@ -27,7 +24,7 @@ public class TwitchDev {
 		if (bot != null) {
 			EventDispatcher dispatcher = bot.getDispatcher();
 			dispatcher.registerListener(new MessageHandler());
-			dispatcher.registerListener(new AutoMod());
+			//dispatcher.registerListener(new AutoMod());
 			dispatcher.registerListener(new RankHandler());
 		} else {
 			throw new NullPointerException("Failed to initialize bot");

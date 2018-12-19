@@ -12,11 +12,14 @@ import java.io.IOException;
 
 public class Kraken {
 
+	private static String clientID = "cq07ulh1kygh08x8ydf1kxk9rnelhy";
+	private static String baseUrl = "https://api.twitch.tv/v5";
+
 	public static JSONObject getEvents() {
 		HttpClient client = HttpClients.createDefault();
-		HttpGet get = new HttpGet("https://api.twitch.tv/v5/channels/141981764/events");
+		HttpGet get = new HttpGet(baseUrl + "/channels/141981764/events");
 		get.setHeader("Accept", "application/vnd.twitchtv.v5+json");
-		get.setHeader("Client-ID", "jzkbprff40iqj646a697cyrvl0zt2m6");
+		get.setHeader("Client-ID", clientID);
 		try {
 			HttpResponse response = client.execute(get);
 			HttpEntity entity = response.getEntity();
