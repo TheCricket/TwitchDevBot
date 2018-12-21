@@ -10,7 +10,7 @@ public class ReadyHandler {
 	@EventSubscriber
 	public void onReady(ReadyEvent event) {
 		BlogThread blogThread = new BlogThread();
-		blogThread.start();
+		//blogThread.start();
 
 		StreamAnnouncementThread streamAnnouncementThread = new StreamAnnouncementThread();
 		streamAnnouncementThread.start();

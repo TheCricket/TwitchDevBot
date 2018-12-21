@@ -28,7 +28,7 @@ public class BlogThread extends Thread {
 			if(latestFeed != null && latestFeed != feed.getEntries().get(0)) {
 				latestFeed = feed.getEntries().get(0);
 				updateAnnouncements();
-			} else {
+			} else if(latestFeed == null){
 				latestFeed = feed.getEntries().get(0);
 				updateAnnouncements();
 			}
@@ -41,8 +41,10 @@ public class BlogThread extends Thread {
 	}
 
 	private void updateAnnouncements() {
-		MessageUtils.sendMessage(TwitchDev.getBot().getGuilds().get(0), TwitchDev.getBot().getChannelByID(523673395221495808L), "New Blog Post:");
-		MessageUtils.sendEmbed(TwitchDev.getBot().getGuilds().get(0), TwitchDev.getBot().getChannelByID(523673395221495808L), new EmbedObject(new IEmbed() {
+		//523673395221495808L - #announcements
+		//524833530656587777L - #bot-test
+		MessageUtils.sendMessage(TwitchDev.getBot().getGuilds().get(0), TwitchDev.getBot().getChannelByID(524833530656587777L), "New Blog Post:");
+		MessageUtils.sendEmbed(TwitchDev.getBot().getGuilds().get(0), TwitchDev.getBot().getChannelByID(524833530656587777L), new EmbedObject(new IEmbed() {
 			@Override
 			public String getTitle() {
 				return latestFeed.getTitle();

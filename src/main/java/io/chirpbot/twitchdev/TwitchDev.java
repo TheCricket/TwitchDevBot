@@ -1,9 +1,7 @@
 package io.chirpbot.twitchdev;
 
 import io.chirpbot.twitchdev.commands.CommandList;
-import io.chirpbot.twitchdev.handlers.MessageHandler;
-import io.chirpbot.twitchdev.handlers.RankHandler;
-import io.chirpbot.twitchdev.handlers.ReadyHandler;
+import io.chirpbot.twitchdev.helpers.crawler.Spider;
 import io.chirpbot.twitchdev.secret.Secret;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +9,8 @@ import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.EventDispatcher;
 import sx.blah.discord.util.DiscordException;
+
+import java.util.List;
 
 public class TwitchDev {
 
@@ -24,10 +24,13 @@ public class TwitchDev {
 		bot = createClient(token, login);
 		if (bot != null) {
 			EventDispatcher dispatcher = bot.getDispatcher();
-			dispatcher.registerListener(new MessageHandler());
+			//dispatcher.registerListener(new MessageHandler());
 			//dispatcher.registerListener(new AutoMod());
-			dispatcher.registerListener(new RankHandler());
-			dispatcher.registerListener(new ReadyHandler());
+			//dispatcher.registerListener(new RankHandler());
+			//dispatcher.registerListener(new ReadyHandler());
+			Spider spider = new Spider();
+			List<String> sites = spider.search("https://dev.twitch.tv/docs/", "auth");
+			sites.forEach(site -> getLogger().info(site));
 		} else {
 			throw new NullPointerException("Failed to initialize bot");
 		}
