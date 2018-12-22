@@ -15,12 +15,12 @@ public class ReadyHandler {
 		BlogThread blogThread = new BlogThread();
 
 		Timer timer = new Timer();
-		timer.schedule(new TimerTask() {
+		timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
 				blogThread.run();
 			}
-		}, 60 * 60 * 1000);
+		}, 0, 1000 * 60 * 60);
 
 		StreamAnnouncementThread streamAnnouncementThread = new StreamAnnouncementThread();
 		streamAnnouncementThread.start();
