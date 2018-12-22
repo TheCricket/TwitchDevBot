@@ -26,7 +26,7 @@ public class BlogThread {
 
 	public void run() {
 		Feed feed = parser.readFeed();
-		if(latestFeed != null && latestFeed != feed.getEntries().get(0)) {
+		if(latestFeed != null && !latestFeed.equals(feed.getEntries().get(0))) {
 			latestFeed = feed.getEntries().get(0);
 			updateAnnouncements();
 		} else if(latestFeed == null){

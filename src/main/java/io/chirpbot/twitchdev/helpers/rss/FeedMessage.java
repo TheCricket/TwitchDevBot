@@ -44,6 +44,11 @@ public class FeedMessage {
 	}
 
 	@Override
+	public boolean equals(Object obj) {
+		return (this == obj) || this.guid.equals(((FeedMessage)obj).guid);
+	}
+
+	@Override
 	public String toString() {
 		return String.format("FeedMessage [title=%s, description=%s, link=%s, author=%s, guid=%s]", title, description, link, author, guid);
 	}
