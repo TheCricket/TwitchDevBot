@@ -12,7 +12,10 @@ import java.awt.*;
 import java.time.Instant;
 import java.util.List;
 
-public class BlogThread extends Thread {
+public class BlogThread {
+	private final long CHANNEL_ANNOUNCEMENTS = 523673395221495808L;
+	private final long CHANNEL_BOT_TEST = 524833530656587777L;
+
 	private RSSParser parser;
 	private FeedMessage latestFeed;
 
@@ -21,30 +24,20 @@ public class BlogThread extends Thread {
 		latestFeed = null;
 	}
 
-	@Override
 	public void run() {
-		while(true) {
-			Feed feed = parser.readFeed();
-			if(latestFeed != null && latestFeed != feed.getEntries().get(0)) {
-				latestFeed = feed.getEntries().get(0);
-				updateAnnouncements();
-			} else if(latestFeed == null){
-				latestFeed = feed.getEntries().get(0);
-				updateAnnouncements();
-			}
-			try {
-				sleep(3600000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+		Feed feed = parser.readFeed();
+		if(latestFeed != null && !latestFeed.equals(feed.getEntries().get(0))) {
+			latestFeed = feed.getEntries().get(0);
+			updateAnnouncements();
+		} else if(latestFeed == null){
+			latestFeed = feed.getEntries().get(0);
+			updateAnnouncements();
 		}
 	}
 
 	private void updateAnnouncements() {
-		//523673395221495808L - #announcements
-		//524833530656587777L - #bot-test
-		MessageUtils.sendMessage(TwitchDev.getBot().getGuilds().get(0), TwitchDev.getBot().getChannelByID(524833530656587777L), "New Blog Post:");
-		MessageUtils.sendEmbed(TwitchDev.getBot().getGuilds().get(0), TwitchDev.getBot().getChannelByID(524833530656587777L), new EmbedObject(new IEmbed() {
+		MessageUtils.sendMessage(TwitchDev.getBot().getGuilds().get(0), TwitchDev.getBot().getChannelByID(CHANNEL_BOT_TEST), "New Blog Post:");
+		MessageUtils.sendEmbed(TwitchDev.getBot().getGuilds().get(0), TwitchDev.getBot().getChannelByID(CHANNEL_BOT_TEST), new EmbedObject(new IEmbed() {
 			@Override
 			public String getTitle() {
 				return latestFeed.getTitle();
