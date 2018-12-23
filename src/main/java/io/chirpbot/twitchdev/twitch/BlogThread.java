@@ -36,7 +36,7 @@ public class BlogThread {
 	}
 
 	private void updateAnnouncements() {
-		MessageUtils.sendMessage(TwitchDev.getBot().getGuilds().get(0), TwitchDev.getBot().getChannelByID(CHANNEL_ANNOUNCEMENTS), "New Blog Post:");
+		MessageUtils.sendMessage(TwitchDev.getBot().getGuilds().get(0), TwitchDev.getBot().getChannelByID(CHANNEL_BOT_TEST), "New Blog Post:");
 		MessageUtils.sendEmbed(TwitchDev.getBot().getGuilds().get(0), TwitchDev.getBot().getChannelByID(CHANNEL_BOT_TEST), new EmbedObject(new IEmbed() {
 			@Override
 			public String getTitle() {
