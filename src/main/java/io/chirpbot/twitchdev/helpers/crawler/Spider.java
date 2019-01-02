@@ -19,8 +19,9 @@ public class Spider {
 	private List<String> searchFound = new ArrayList<>();
 
 	public List<String> search(String url, String searchTerm) {
-		Path path = buildPath(url);
-		while(this.pagesVisited.size() < 200) {
+		this.pagesToVisit.add(url);
+		//Path path = buildPath(url);
+		while(!this.pagesToVisit.isEmpty()) {
 			String currentURL;
 			SpiderLeg leg = new SpiderLeg();
 			if(this.pagesToVisit.isEmpty()) {
@@ -30,9 +31,8 @@ public class Spider {
 				currentURL = nextURL();
 			}
 			leg.crawl(currentURL);
-			boolean success = leg.searchForTerm(searchTerm);
-			if(success) {
-				TwitchDev.getLogger().info(String.format("%s found at %s", searchTerm, currentURL));
+			if(leg.searchForTerm(searchTerm) != null) {
+				TwitchDev.getLogger().info(String.format("%s found at %s", searchTerm, leg.searchForTerm(searchTerm)));
 				searchFound.add(currentURL);
 			}
 			this.pagesToVisit.addAll(leg.getLinks());

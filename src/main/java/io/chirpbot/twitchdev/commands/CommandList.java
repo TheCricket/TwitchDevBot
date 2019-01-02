@@ -8,7 +8,6 @@ public class CommandList {
 	private static List<ICommand> commands = new ArrayList<>();
 
 	public CommandList() {
-		commands.add(new CommandEvents());
 		commands.add(new CommandDocs());
 		commands.add(new CommandGithub());
 		commands.add(new CommandListCommands());

@@ -36,7 +36,7 @@ public class SpiderLeg {
 			Elements linksOnPage = html.select("a[href]");
 			TwitchDev.getLogger().info("Found (" + linksOnPage +  ") links");
 			for(Element link : linksOnPage) {
-				if(link.absUrl("href").contains(url) && !link.absUrl("href").equals(url) && !link.absUrl("href").equals(url + '#')) {
+				if(link.absUrl("href").contains(url) && !link.absUrl("href").equals(url) && !link.absUrl("href").contains("#")) {
 					this.links.add(link.absUrl("href"));
 				}
 			}
@@ -51,15 +51,20 @@ public class SpiderLeg {
 		}
 	}
 
-	public boolean searchForTerm(String searchTerm) {
+	public String searchForTerm(String searchTerm) {
 		if(this.htmlDoc == null) {
 			TwitchDev.getLogger().error("You need to crawl before you can run!");
-			return false;
+			return null;
 		}
 
 		TwitchDev.getLogger().info(String.format("Searching for %s...", searchTerm));
-		String bodyText = this.htmlDoc.body().text();
-		return bodyText.toLowerCase().contains(searchTerm.toLowerCase());
+		Elements headers = this.htmlDoc.select("h2[id]");
+		for(Element header : headers) {
+			if(header.id().contains(searchTerm)) {
+				return this.htmlDoc.baseUri() + "#" + header.id();
+			}
+		}
+		return null;
 	}
 
 	public List<String> getLinks() {
