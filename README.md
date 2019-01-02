@@ -1,6 +1,6 @@
 # TwitchDevBot
 
-[![](https://img.shields.io/discord/504015559252377601.svg)](https://discordapp.com/invite/G8UQqNy) [![Pending Pull-Requests](http://githubbadges.herokuapp.com/boennemann/badges/pulls.svg?style=flat)](https://github.com/thecricket/twitchdevbot/pulls) [![Open Issues](http://githubbadges.herokuapp.com/boennemann/badges/issues.svg?style=flat)](https://github.com/thecricket/twitchdevbot/issues)
+[![](https://img.shields.io/discord/504015559252377601.svg)](https://discordapp.com/invite/G8UQqNy) [![Pending Pull-Requests](http://githubbadges.herokuapp.com/thecricket/twitchdevbot/pulls.svg?style=flat)](https://github.com/thecricket/twitchdevbot/pulls) [![Open Issues](http://githubbadges.herokuapp.com/thecricket/twitchdevbot/issues.svg?style=flat)](https://github.com/thecricket/twitchdevbot/issues)
 
 First and foremost this is a community project. Whether you contribute with code or you contribute with ideas you are important. I want this to be an important part of the community and move us into a brighter future.
 
