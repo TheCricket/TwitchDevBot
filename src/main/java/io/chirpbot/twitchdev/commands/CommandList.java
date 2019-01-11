@@ -12,6 +12,7 @@ public class CommandList {
 		commands.add(new CommandGithub());
 		commands.add(new CommandListCommands());
 		commands.add(new CommandTest());
+		commands.add(new CommandStaff());
 	}
 
 	public static List<ICommand> getCommandList() {
