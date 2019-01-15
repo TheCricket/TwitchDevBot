@@ -16,7 +16,7 @@ public class MessageHandler {
 	@EventSubscriber
 	public void onMessageReceived(MessageReceivedEvent event) {
 		for(ICommand command : TwitchDev.commands.getCommandList()) {
-			if(event.getMessage().getContent().contains(command.getCommand())) {
+			if(event.getMessage().getContent().startsWith(command.getCommand())) {
 				command.executeResponse(event.getMessage().getContent(), event);
 			}
 		}
