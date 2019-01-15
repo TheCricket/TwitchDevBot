@@ -1,5 +1,6 @@
 package io.chirpbot.twitchdev.commands;
 
+import io.chirpbot.twitchdev.commands.utils.ICommand;
 import io.chirpbot.twitchdev.helpers.MessageUtils;
 import io.chirpbot.twitchdev.twitch.Helix;
 import org.json.JSONArray;
@@ -27,6 +28,11 @@ public class CommandTest implements ICommand {
 	@Override
 	public String getCommand() {
 		return "!test";
+	}
+
+	@Override
+	public List<String> getAliases() {
+		return null;
 	}
 
 	@Override

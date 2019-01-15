@@ -1,6 +1,7 @@
 package io.chirpbot.twitchdev.commands;
 
 import io.chirpbot.twitchdev.TwitchDev;
+import io.chirpbot.twitchdev.commands.utils.ICommand;
 import io.chirpbot.twitchdev.helpers.MessageUtils;
 import io.chirpbot.twitchdev.helpers.crawler.Spider;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
@@ -18,6 +19,11 @@ public class CommandDocs implements ICommand {
 	@Override
 	public String getCommand() {
 		return "!docs";
+	}
+
+	@Override
+	public List<String> getAliases() {
+		return null;
 	}
 
 	@Override

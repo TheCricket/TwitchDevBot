@@ -1,9 +1,9 @@
 package io.chirpbot.twitchdev;
 
-import io.chirpbot.twitchdev.commands.CommandList;
+import io.chirpbot.twitchdev.commands.utils.CommandList;
 import io.chirpbot.twitchdev.handlers.MessageHandler;
 import io.chirpbot.twitchdev.handlers.RankHandler;
-import io.chirpbot.twitchdev.handlers.ReadyHandler;
+import io.chirpbot.twitchdev.handlers.BlogHandler;
 import io.chirpbot.twitchdev.secret.Secret;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +20,7 @@ public class TwitchDev {
 	private static IDiscordClient bot;
 	private static final Logger logger = LoggerFactory.getLogger(TwitchDev.class);
 	public static CommandList commands = new CommandList();
+	public static boolean DEBUG;
 
 	private static final long CHANNEL_ANNOUNCEMENTS = 523673395221495808L;
 	private static final long CHANNEL_BOT_TEST = 524833530656587777L;
@@ -31,10 +32,15 @@ public class TwitchDev {
 			dispatcher.registerListener(new MessageHandler());
 			//dispatcher.registerListener(new AutoMod());
 			dispatcher.registerListener(new RankHandler());
-			dispatcher.registerListener(new ReadyHandler());
+			dispatcher.registerListener(new BlogHandler());
 
 
-			if(args[0].equals("debug")) bot.changeStreamingPresence(StatusType.ONLINE, "Debug Mode", "twitch.tv/twitchdev");
+			if(args[0].equals("debug")) {
+				DEBUG = true;
+				bot.changeStreamingPresence(StatusType.ONLINE, "Debug Mode", "twitch.tv/twitchdev");
+			} else {
+				DEBUG = false;
+			}
 		} else {
 			throw new NullPointerException("Failed to initialize bot");
 		}

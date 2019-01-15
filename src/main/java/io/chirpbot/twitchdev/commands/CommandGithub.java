@@ -1,5 +1,6 @@
 package io.chirpbot.twitchdev.commands;
 
+import io.chirpbot.twitchdev.commands.utils.ICommand;
 import io.chirpbot.twitchdev.helpers.MessageUtils;
 import io.chirpbot.twitchdev.helpers.cURL;
 import org.json.JSONArray;
@@ -11,6 +12,7 @@ import java.io.IOException;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 public class CommandGithub implements ICommand {
 
@@ -20,6 +22,11 @@ public class CommandGithub implements ICommand {
 	@Override
 	public String getCommand() {
 		return "!github";
+	}
+
+	@Override
+	public List<String> getAliases() {
+		return null;
 	}
 
 	@Override
