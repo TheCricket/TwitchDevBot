@@ -1,5 +1,6 @@
 package io.chirpbot.twitchdev.helpers;
 
+import java.nio.charset.StandardCharsets;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -13,7 +14,7 @@ public class cURL {
 
 	public static JSONObject GET(String www) throws IOException {
 		URL url = new URL(www);
-		BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream(), StandardCharsets.UTF_8));
 		String out = reader.lines().collect(Collectors.joining());
 		return new JSONObject(out);
 	}
@@ -23,14 +24,7 @@ public class cURL {
 	}
 
 	public static String buildURL(String www, HashMap<String, String> params) {
-		StringBuilder out = new StringBuilder();
-		out.append(www);
-		int c = 0;
-		for(String k : params.keySet()) {
-			if (c == 0) out.append(String.format("?%s=%s", k, params.get(k)));
-			else out.append(String.format("&%s=%s", k, params.get(k)));
-			c++;
-		}
-		return out.toString();
+		return www + params.entrySet().stream().map(e -> e.getKey() + "=" + e.getValue())
+				.collect(Collectors.joining("&", "?", ""));
 	}
 }

@@ -1,14 +1,20 @@
-apply plugin: 'java'
-apply plugin: 'idea'
+plugins {
+    id "java"
+    id "idea"
+    id "application"
+    id "com.github.ben-manes.versions" version "0.20.0"     // for version dependency updates
+    id "com.github.johnrengelman.shadow" version "4.0.3"    // fatJar aka shadowJar
+}
 
-group 'io.chirpbot.twitchdev'
-version '1.0.1'
+group "io.chirpbot.twitchdev"
+version "1.1.0-SNAPSHOT"
 
-sourceCompatibility = 1.8
+sourceCompatibility = targetCompatibility = 1.8
+
+mainClassName = "io.chirpbot.twitchdev.TwitchDev"
 
 repositories {
     jcenter()
-    mavenCentral()
     maven {
         url "https://jitpack.io"
     }
@@ -25,17 +31,19 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
-task fatJar(type: Jar) {
+shadowJar {
+    classifier "all"
+}
+
+tasks.withType(Jar) {
+    def attrib = manifest.attributes
+    attrib.put("Implementation-Title", "TwitchDev Bot")
+    attrib.put("Implementation-Version", project.version)
     manifest {
-        attributes 'Implementation-Title': 'TwitchDev Bot',
-        'Implementation-Version': version,
-        'Main-Class': 'io.chirpbot.twitchdev.TwitchDev'
+        attributes(attrib)
     }
-    baseName = project.name + '-all'
-    from {
-        configurations.compile.collect {
-            it.isDirectory()? it : zipTree(it)
-        }
-    }
-    with jar
+}
+
+wrapper {
+    distributionType = Wrapper.DistributionType.ALL
 }
