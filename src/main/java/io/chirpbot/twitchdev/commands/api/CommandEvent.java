@@ -55,27 +55,27 @@ public class CommandEvent {
         return event.getClient();
     }
 
-    public void replay(String message, EmbedObject embed) {
+    public void send(String message, EmbedObject embed) {
         event.getChannel().sendMessage(message, embed);
     }
 
-    public void replay(String message) {
+    public void send(String message) {
         event.getChannel().sendMessage(message);
     }
 
-    public void replay(EmbedObject embed) {
+    public void send(EmbedObject embed) {
         event.getChannel().sendMessage(embed);
     }
 
-    public void replayDm(String message, EmbedObject embed) {
+    public void sendDm(String message, EmbedObject embed) {
         event.getAuthor().getOrCreatePMChannel().sendMessage(message, embed);
     }
 
-    public void replayDm(String message) {
+    public void sendDm(String message) {
         event.getAuthor().getOrCreatePMChannel().sendMessage(message);
     }
 
-    public void replayDm(EmbedObject embed) {
+    public void sendDm(EmbedObject embed) {
         event.getAuthor().getOrCreatePMChannel().sendMessage(embed);
     }
 }
