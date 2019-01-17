@@ -1,6 +1,8 @@
 package io.chirpbot.twitchdev.commands.api;
 
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
@@ -49,6 +51,10 @@ public abstract class Command implements Consumer<CommandEvent> {
 
     public String getDescription() {
         return description;
+    }
+
+    public boolean isCustomCommand() {
+        return this instanceof CustomCommand;
     }
 
     public boolean isAccessible(CommandEvent event) {
