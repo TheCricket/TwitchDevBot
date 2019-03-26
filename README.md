@@ -17,8 +17,7 @@ First and foremost this is a community project. Whether you contribute with code
 
 ## Built With
 
-* [Discord4J](https://github.com/Discord4J/Discord4J) - Bot Framework
-* [Gradle](https://gradle.org/) - Build Tool
+* [discord.js](https://discord.js.org/#/) - Bot Framework
 
 ## Contributing
 

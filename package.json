@@ -1,0 +1,28 @@
+{
+  "name": "twitchdevbot",
+  "version": "1.0.0",
+  "description": "[![](https://img.shields.io/discord/504015559252377601.svg)](https://discordapp.com/invite/G8UQqNy) [![Pending Pull-Requests](http://githubbadges.herokuapp.com/thecricket/twitchdevbot/pulls.svg?style=flat)](https://github.com/thecricket/twitchdevbot/pulls) [![Open Issues](http://githubbadges.herokuapp.com/thecricket/twitchdevbot/issues.svg?style=flat)](https://github.com/thecricket/twitchdevbot/issues)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheCricket/TwitchDevBot.git"
+  },
+  "author": "Cricket",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheCricket/TwitchDevBot/issues"
+  },
+  "homepage": "https://github.com/TheCricket/TwitchDevBot#readme",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "discord.js": "^11.4.2",
+    "enmap": "^4.8.1",
+    "rss-parser": "^3.6.3"
+  },
+  "devDependencies": {
+    "moment": "^2.24.0"
+  }
+}
