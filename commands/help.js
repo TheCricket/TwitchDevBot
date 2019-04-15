@@ -7,7 +7,7 @@ exports.run = (client, message, args) => {
 
         let currentCategory = "";
         let output = `= Command List =\n\n[Use !help <commandname> for details]\n`;
-        const sorted = client.commands.array().sort((p, c) => p.help.category > c.help.category ? 1 : p.help.name > c.help.name && p.help.category == c.help.category ? 1 : -1);
+        const sorted = client.commands.array().sort((p, c) => p.help.category > c.help.category ? 1 : p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1);
         sorted.forEach(c => {
           const cat = c.help.category;
           if(currentCategory !== cat) {

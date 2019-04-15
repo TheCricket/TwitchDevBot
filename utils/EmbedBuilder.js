@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 
-exports.buildRichEmbed = (link, title, description, author, authorImg, previewImage, blogPost) => {
+exports.buildRichEmbed = (link, title, description, author, authorImg, previewImage, footer) => {
     const embed = new Discord.RichEmbed()
         .setTitle(title)
         .setAuthor(author)
@@ -9,7 +9,7 @@ exports.buildRichEmbed = (link, title, description, author, authorImg, previewIm
          */
         .setColor(0x6441A4)
         .setDescription(description)
-        .setFooter(blogPost ? 'Brought to you by blog.twitch.tv' : 'Brought to you by the dev forums', authorImg)
+        .setFooter(footer, authorImg)
         //.setImage(previewImage)
         /*
          * Takes a Date object, defaults to current date.

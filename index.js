@@ -14,6 +14,7 @@ client.aliases = new Enmap();
 
 let lastBlogPost;
 let lastForumPost;
+let lastStatusPost;
 
 let botTesting = '524833530656587777';
 let announcements = '523673395221495808';
@@ -23,6 +24,7 @@ console.log(`We are in ${process.env.ENV}`);
 const feeds = () => {
     parseBlog();
     parseForums();
+    parseStatus();
 };
 
 const parseBlog = () => {
@@ -37,7 +39,7 @@ const parseBlog = () => {
         } else {
             //Send message to announcements
             lastBlogPost = feed.items[0];
-            client.channels.get(`${process.env.ENV === 'development' ? botTesting : announcements}`).send(EmbedBuilder.buildRichEmbed(lastBlogPost.link, lastBlogPost.title, '', lastBlogPost.creator, '', '', true));
+            client.channels.get(`${process.env.ENV === 'development' ? botTesting : announcements}`).send(EmbedBuilder.buildRichEmbed(lastBlogPost.link, lastBlogPost.title, '', lastBlogPost.creator, '', '', 'Brought to you by blog.twitch.tv'));
         }
     });
 };
@@ -54,7 +56,22 @@ const parseForums = () => {
         } else {
             //Send message to announcements
             lastForumPost = feed.items[0];
-            client.channels.get(`${process.env.ENV === 'development' ? botTesting : announcements}`).send(EmbedBuilder.buildRichEmbed(lastForumPost.link, lastForumPost.title, lastForumPost.contentSnippet.substr(0, 237) + '...', lastForumPost.creator, '', '', false));
+            client.channels.get(`${process.env.ENV === 'development' ? botTesting : announcements}`).send(EmbedBuilder.buildRichEmbed(lastForumPost.link, lastForumPost.title, lastForumPost.contentSnippet.substr(0, 237) + '...', lastForumPost.creator, '', '', 'Brought to you by the dev forums'));
+        }
+    });
+};
+
+const parseStatus = () => {
+    let p = new RSSParser();
+    p.parseURL('https://devstatus.twitch.tv/history.rss', function(err, feed) {
+        if(lastStatusPost == null) {
+            //Startup
+            lastStatusPost = feed.items[0];
+        } else if(lastStatusPost.title === feed.items[0].title) {
+            client.logger.log('Checked status update posts but found the same one');
+        } else {
+            lastStatusPost = feed.items[0];
+            client.channels.get(`${process.env.ENV === 'development' ? botTesting : announcements}`).send(EmbedBuilder.buildRichEmbed(lastStatusPost.link, lastStatusPost.title, lastStatusPost.contentSnippet.substr(0, 237) + '...', 'TwitchDev', '', '', 'Brought to you by dev.twitch.tv/status'));
         }
     });
 };
