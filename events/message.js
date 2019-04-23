@@ -1,6 +1,12 @@
 const Permissions = require('../utils/Permissions');
 module.exports = async (client, message) => {
   if(message.author.bot) return;
+
+  if(message.content.toLowerCase().includes('twitch') && message.content.toLowerCase().includes('sings')) {
+    message.channel.send(`Hey there ${message.author}! We don't provide support for TwitchSings. To get support for it head on over to link.twitch.tv/help and our friends at TwitchSupport will help you out!`);
+    return;
+  }
+
   if(!message.content.startsWith('!')) return;
 
   const args = message.content.slice(1).trim().split(' ');

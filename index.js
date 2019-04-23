@@ -2,79 +2,43 @@ const Discord = require('discord.js');
 const { promisify } = require('util');
 const readdir = promisify(require('fs').readdir);
 const Enmap = require('enmap');
-const RSSParser = require('rss-parser');
-const EmbedBuilder = require('./utils/EmbedBuilder');
+const http = require('http');
 
 const client = new Discord.Client();
-client.logger = require("./modules/Logger");
+client.logger = require('./modules/Logger');
 require('./modules/functions')(client);
+const RSSFeeds = require('./modules/RSSFeeds');
+const WebHook = require('node-webhooks');
+const EmbedBuilder = require("./utils/EmbedBuilder");
 
 client.commands = new Enmap();
 client.aliases = new Enmap();
 
-let lastBlogPost;
-let lastForumPost;
-let lastStatusPost;
-
-let botTesting = '524833530656587777';
-let announcements = '523673395221495808';
-
 console.log(`We are in ${process.env.ENV}`);
 
-const feeds = () => {
-    parseBlog();
-    parseForums();
-    parseStatus();
-};
+http.createServer(function(req, res) {
+    res.end();
+}).listen(8080);
 
-const parseBlog = () => {
-    let parser = new RSSParser();
-    parser.parseURL('http://blog.twitch.tv/feed', function(err, feed) {
-        if(lastBlogPost == null) {
-            //Startup
-            lastBlogPost = feed.items[0];
-        } else if(lastBlogPost.title === feed.items[0].title) {
-            //Same post
-            client.logger.log('Checked blog posts but found the same one');
-        } else {
-            //Send message to announcements
-            lastBlogPost = feed.items[0];
-            client.channels.get(`${process.env.ENV === 'development' ? botTesting : announcements}`).send(EmbedBuilder.buildRichEmbed(lastBlogPost.link, lastBlogPost.title, '', lastBlogPost.creator, '', '', 'Brought to you by blog.twitch.tv'));
-        }
-    });
-};
+const webHook = new WebHook();
+webHook.add('twitchAlerts', 'https://api.twitch.tv/helix/webhooks/hub').then(function() {
+    client.logger.log('Added webhooks hub');
+}).catch(function(err) {
+    client.logger.error(err);
+});
+webHook.trigger('twitchAlerts', {
+   'hub.callback': 'http://167.99.15.68:8080',
+    'hub.mode': 'subscribe',
+    'hub.topic': 'https://api.twitch.tv/helix/streams?user_id=141981764'
+    'hub.lease_seconds': '864000'
+});
+const emitter = webHook.getEmitter();
 
-const parseForums = () => {
-    let par = new RSSParser();
-    par.parseURL('https://discuss.dev.twitch.tv/c/announcements.rss', function(err, feed) {
-        if(lastForumPost == null) {
-            //Startup
-            lastForumPost = feed.items[0];
-        } else if(lastForumPost.title === feed.items[0].title) {
-            //Same post
-            client.logger.log('Checked forum posts but found the same one');
-        } else {
-            //Send message to announcements
-            lastForumPost = feed.items[0];
-            client.channels.get(`${process.env.ENV === 'development' ? botTesting : announcements}`).send(EmbedBuilder.buildRichEmbed(lastForumPost.link, lastForumPost.title, lastForumPost.contentSnippet.substr(0, 237) + '...', lastForumPost.creator, '', '', 'Brought to you by the dev forums'));
-        }
-    });
-};
-
-const parseStatus = () => {
-    let p = new RSSParser();
-    p.parseURL('https://devstatus.twitch.tv/history.rss', function(err, feed) {
-        if(lastStatusPost == null) {
-            //Startup
-            lastStatusPost = feed.items[0];
-        } else if(lastStatusPost.title === feed.items[0].title) {
-            client.logger.log('Checked status update posts but found the same one');
-        } else {
-            lastStatusPost = feed.items[0];
-            client.channels.get(`${process.env.ENV === 'development' ? botTesting : announcements}`).send(EmbedBuilder.buildRichEmbed(lastStatusPost.link, lastStatusPost.title, lastStatusPost.contentSnippet.substr(0, 237) + '...', 'TwitchDev', '', '', 'Brought to you by dev.twitch.tv/status'));
-        }
-    });
-};
+emitter.on('*', function(shortname, statusCode, body) {
+    const json = JSON.parse(body);
+    const data = json.data[0];
+    client.channels.get(`${process.env.ENV === 'development' ? '524833530656587777' : '523673395221495808'}`).send(EmbedBuilder.buildRichEmbed('https://www.twitch.tv/twitchdev', data.title, 'TwitchDev is now live!', 'TwitchDev', 'https://static-cdn.jtvnw.net/jtv_user_pictures/twitchdev-profile_image-d2f9d60c77c1505a-70x70.png', data.thumbnail_url));
+});
 
 const init = async () => {
     const cmdFiles = await readdir("./commands/");
@@ -97,7 +61,5 @@ const init = async () => {
     client.login(process.env.TOKEN);
 };
 
-feeds();
-setInterval(feeds, 600000);
-
+RSSFeeds.listen();
 init();
