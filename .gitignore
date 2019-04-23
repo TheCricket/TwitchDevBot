@@ -7,3 +7,4 @@ logs
 logback.xml
 secrets.txt
 /src/main/java/io/chirpbot/twitchdev/secret/Secret.java
+nodemon.json
