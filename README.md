@@ -5,10 +5,9 @@
 First and foremost this is a community project. Whether you contribute with code or you contribute with ideas you are important. I want this to be an important part of the community and move us into a brighter future.
 
 ## Completed:
-- [x] Search the docs
-- [x] Search github for users
 - [x] Announce when stream is live
 - [x] Announce when new blogs are posted
+- [x] Announce forum posts
 
 ## Planned:
 - [ ] Discovery
@@ -22,10 +21,6 @@ First and foremost this is a community project. Whether you contribute with code
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://github.com/TheCricket/TwitchDevBot/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/thecricket/twitchdevbot/tags).
 
 ## Authors
 
