@@ -29,7 +29,7 @@ webHook.add('twitchAlerts', 'https://api.twitch.tv/helix/webhooks/hub').then(fun
 webHook.trigger('twitchAlerts', {
    'hub.callback': 'http://167.99.15.68:8080',
     'hub.mode': 'subscribe',
-    'hub.topic': 'https://api.twitch.tv/helix/streams?user_id=141981764'
+    'hub.topic': 'https://api.twitch.tv/helix/streams?user_id=141981764',
     'hub.lease_seconds': '864000'
 });
 const emitter = webHook.getEmitter();
