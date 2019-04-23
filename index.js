@@ -20,7 +20,9 @@ http.createServer(function(req, res) {
     res.end();
 }).listen(8080);
 
-const webHook = new WebHook();
+const webHook = new WebHook({
+    db:'./webHooksDB.json'
+});
 webHook.add('twitchAlerts', 'https://api.twitch.tv/helix/webhooks/hub').then(function() {
     client.logger.log('Added webhooks hub');
 }).catch(function(err) {
