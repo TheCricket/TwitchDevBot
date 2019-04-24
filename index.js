@@ -63,5 +63,5 @@ const init = async () => {
     client.login(process.env.TOKEN);
 };
 
-RSSFeeds.listen();
+RSSFeeds.listen(client);
 init();

@@ -8,13 +8,13 @@ let lastStatusPost;
 let botTesting = '524833530656587777';
 let announcements = '523673395221495808';
 
-exports.init = () => {
-    this.parseBlog();
-    this.parseForums();
-    this.parseStatus();
+exports.init = (client) => {
+    this.parseBlog(client);
+    this.parseForums(client);
+    this.parseStatus(client);
 };
 
-exports.parseBlog = () => {
+exports.parseBlog = (client) => {
     let parser = new RSSParser();
     parser.parseURL('http://blog.twitch.tv/feed', function(err, feed) {
         if(lastBlogPost == null) {
@@ -31,7 +31,7 @@ exports.parseBlog = () => {
     });
 };
 
-exports.parseForums = () => {
+exports.parseForums = (client) => {
     let par = new RSSParser();
     par.parseURL('https://discuss.dev.twitch.tv/c/announcements.rss', function(err, feed) {
         if(lastForumPost == null) {
@@ -48,7 +48,7 @@ exports.parseForums = () => {
     });
 };
 
-exports.parseStatus = () => {
+exports.parseStatus = (client) => {
     let p = new RSSParser();
     p.parseURL('https://devstatus.twitch.tv/history.rss', function(err, feed) {
         if(lastStatusPost == null) {
@@ -63,7 +63,7 @@ exports.parseStatus = () => {
     });
 };
 
-exports.listen = () => {
-    this.init;
-    setInterval(this.init, 600000);
+exports.listen = (client) => {
+    this.init(client);
+    setInterval(this.init(client), 600000);
 };
