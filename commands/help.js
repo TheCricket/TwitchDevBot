@@ -1,4 +1,5 @@
-const Categories = require('../utils/Categories');
+import Categories from '../utils/Categories';
+import Permissions from '../utils/Permissions';
 
 exports.run = (client, message, args) => {
     if(!args[0]) {
@@ -14,15 +15,23 @@ exports.run = (client, message, args) => {
               output += `\u200b\n== ${cat} ==\n`;
               currentCategory = cat;
           }
-          output += `!${c.help.name}${" ".repeat(longest - c.help.name.length)} :: ${c.help.description}\n`;
+          client.guilds.last().fetchMember(message.author).then(member => {
+              if(Permissions.userHasRole(member, c.conf.ranks)) {
+                  output += `!${c.help.name}${" ".repeat(longest - c.help.name.length)} :: ${c.help.description}\n`;
+              }
+          });
         });
         message.channel.send(output, {code:"asciidoc", split: {char: "\u200b"}});
     } else {
-        let command = args[0];
-        if(client.commands.has(command)) {
-            command = client.commands.get(command);
-            message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage:: ${command.help.usage}\naliases:: ${command.conf.aliases.join(', ')}\n= ${command.help.name} =`, {code:"asciidoc"});
-        }
+        client.guilds.last().fetchMember(message.author).then(member => {
+            if(Permissions.userHasRole(member, c.conf.ranks)) {
+                let command = args[0];
+                if(client.commands.has(command)) {
+                    command = client.commands.get(command);
+                    message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage:: ${command.help.usage}\naliases:: ${command.conf.aliases.join(', ')}\n= ${command.help.name} =`, {code:"asciidoc"});
+                }
+            }
+        });
     }
 };
 

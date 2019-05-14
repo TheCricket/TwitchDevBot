@@ -1,4 +1,5 @@
-const Permissions = require('../utils/Permissions');
+import Permissions from '../utils/Permissions';
+
 module.exports = async (client, message) => {
   if(message.author.bot) return;
 

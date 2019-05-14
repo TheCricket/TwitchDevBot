@@ -1,5 +1,5 @@
-const Permissions = require('../utils/Permissions');
-const Categories = require('../utils/Categories');
+import Permissions from '../utils/Permissions';
+import Categories from '../utils/Categories';
 const permissions = Permissions.appendRoles(Permissions.ADMIN, Permissions.OWNER, Permissions.MOD, Permissions.STAFF);
 
 exports.run = async (client, message, args) => {

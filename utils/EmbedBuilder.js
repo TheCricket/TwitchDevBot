@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+import Discord from 'discord.js';
 
 exports.buildRichEmbed = (link, title, description, author, authorImg, previewImage, footer) => {
     const embed = new Discord.RichEmbed()

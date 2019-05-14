@@ -1,5 +1,5 @@
-const RSSParser = require('rss-parser');
-const EmbedBuilder = require('../utils/EmbedBuilder');
+import RSSParser from 'rss-parser';
+import EmbedBuilder from '../utils/EmbedBuilder';
 
 let lastBlogPost;
 let lastForumPost;

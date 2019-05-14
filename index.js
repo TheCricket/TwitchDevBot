@@ -1,16 +1,16 @@
-const Discord = require('discord.js');
-const { promisify } = require('util');
-const readdir = promisify(require('fs').readdir);
-const Enmap = require('enmap');
-const http = require('http');
+import http from 'http';
+import { readdir as readdir0 } from 'fs';
+import { promisify } from 'util';
+import Discord from 'discord.js';
+import modules from './modules/Logger';
+import RSSFeeds from './modules/RSSFeeds';
+import functions from './modules/functions';
+import Enmap from 'enmap';
 
+const readdir = promisify(readdir0.readdir);
 const client = new Discord.Client();
-client.logger = require('./modules/Logger');
-require('./modules/functions')(client);
-const RSSFeeds = require('./modules/RSSFeeds');
-const WebHook = require('node-webhooks');
-const EmbedBuilder = require("./utils/EmbedBuilder");
-
+client.logger = modules;
+functions(client);
 client.commands = new Enmap();
 client.aliases = new Enmap();
 
@@ -19,28 +19,6 @@ console.log(`We are in ${process.env.ENV}`);
 http.createServer(function(req, res) {
     res.end();
 }).listen(8080);
-
-const webHook = new WebHook({
-    db:'./webHooksDB.json'
-});
-webHook.add('twitchAlerts', 'https://api.twitch.tv/helix/webhooks/hub').then(function() {
-    client.logger.log('Added webhooks hub');
-}).catch(function(err) {
-    client.logger.error(err);
-});
-webHook.trigger('twitchAlerts', {
-   'hub.callback': 'http://167.99.15.68:8080',
-    'hub.mode': 'subscribe',
-    'hub.topic': 'https://api.twitch.tv/helix/streams?user_id=141981764',
-    'hub.lease_seconds': '864000'
-});
-const emitter = webHook.getEmitter();
-
-emitter.on('*', function(shortname, statusCode, body) {
-    const json = JSON.parse(body);
-    const data = json.data[0];
-    client.channels.get(`${process.env.ENV === 'development' ? '524833530656587777' : '523673395221495808'}`).send(EmbedBuilder.buildRichEmbed('https://www.twitch.tv/twitchdev', data.title, 'TwitchDev is now live!', 'TwitchDev', 'https://static-cdn.jtvnw.net/jtv_user_pictures/twitchdev-profile_image-d2f9d60c77c1505a-70x70.png', data.thumbnail_url));
-});
 
 const init = async () => {
     const cmdFiles = await readdir("./commands/");
