@@ -1,5 +1,5 @@
-import Categories from '../utils/Categories';
-import Permissions from '../utils/Permissions';
+const Categories = require('../utils/Categories');
+const Permissions = require('../utils/Permissions');
 
 exports.run = (client, message, args) => {
     if(!args[0]) {

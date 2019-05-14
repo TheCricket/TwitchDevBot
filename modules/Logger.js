@@ -1,5 +1,5 @@
-import chalk from 'chalk';
-import moment from 'moment';
+const chalk = require('chalk');
+const moment = require('moment');
 
 exports.log = (content, type = "log") => {
     const timestamp = `[${moment().format("YYYY-MM-DD HH:mm:ss")}]:`;

@@ -1,11 +1,11 @@
-import http from 'http';
-import { readdir as readdir0 } from 'fs';
-import { promisify } from 'util';
-import Discord from 'discord.js';
-import modules from './modules/Logger';
-import RSSFeeds from './modules/RSSFeeds';
-import functions from './modules/functions';
-import Enmap from 'enmap';
+const http= require('http');
+const { readdir0 } = require('fs');
+const { promisify } = require('util');
+const Discord = require('discord.js');
+const modules = require('./modules/Logger');
+const RSSFeeds = require('./modules/RSSFeeds');
+const functions = require('./modules/functions');
+const Enmap = require('enmap');
 
 const readdir = promisify(readdir0.readdir);
 const client = new Discord.Client();

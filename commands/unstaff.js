@@ -1,5 +1,5 @@
-import Permissions from '../utils/Permissions';
-import Categories from '../utils/Categories';
+const Permissions = require('../utils/Permissions');
+const Categories = require('../utils/Categories');
 
 const permissions = Permissions.appendRoles(Permissions.ADMIN, Permissions.OWNER, Permissions.MOD, Permissions.STAFF);
 
@@ -28,6 +28,6 @@ exports.conf = {
 exports.help = {
     name: 'unstaff',
     category: Categories.UTILITIES,
-    description: 'Remove a user from staff',
+    description: 'Remove a user= require(staff',
     usage: '!unstaff @user'
 };

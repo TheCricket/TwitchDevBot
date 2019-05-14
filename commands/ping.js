@@ -1,4 +1,4 @@
-import Categories from '../utils/Categories';
+const Categories = require('../utils/Categories');
 
 exports.run = async (client, message, args) => {
     const msg = await message.channel.send('Ping?');
