@@ -1,13 +1,12 @@
 const http= require('http');
-const { readdir0 } = require('fs');
 const { promisify } = require('util');
+const readdir = promisify(require('fs').readdir);
 const Discord = require('discord.js');
 const modules = require('./modules/Logger');
 const RSSFeeds = require('./modules/RSSFeeds');
 const functions = require('./modules/functions');
 const Enmap = require('enmap');
 
-const readdir = promisify(readdir0.readdir);
 const client = new Discord.Client();
 client.logger = modules;
 functions(client);
