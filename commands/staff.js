@@ -20,7 +20,6 @@ exports.init = async () => {
 
 exports.conf = {
     enabled: true,
-    guildOnly: true,
     aliases: [],
     ranks: permissions,
 };

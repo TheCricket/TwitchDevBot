@@ -2,8 +2,9 @@
   "name": "twitchdevbot",
   "version": "1.0.0",
   "description": "[![](https://img.shields.io/discord/504015559252377601.svg)](https://discordapp.com/invite/G8UQqNy) [![Pending Pull-Requests](http://githubbadges.herokuapp.com/thecricket/twitchdevbot/pulls.svg?style=flat)](https://github.com/thecricket/twitchdevbot/pulls) [![Open Issues](http://githubbadges.herokuapp.com/thecricket/twitchdevbot/issues.svg?style=flat)](https://github.com/thecricket/twitchdevbot/issues)",
-  "main": "index.js",
+  "main": "start.js",
   "scripts": {
+    "startBot": "nodemon start.js --config",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,6 +26,9 @@
     "rss-parser": "^3.6.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/register": "^7.4.4",
     "moment": "^2.24.0"
   }
 }
