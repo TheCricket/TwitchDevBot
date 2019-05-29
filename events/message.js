@@ -35,7 +35,5 @@ module.exports = async (client, message) => {
       client.logger.cmd(`[CMD] ${message.author.username} (${message.author.id}) ran command ${cmd.help.name}`);
       cmd.run(client, message, args);
     }
-  } else {
-
   }
 };

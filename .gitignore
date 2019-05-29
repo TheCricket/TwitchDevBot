@@ -4,7 +4,7 @@ build
 out
 logs
 .iml
+.env
 logback.xml
 secrets.txt
 node_modules
-nodemon.json

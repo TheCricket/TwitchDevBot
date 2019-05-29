@@ -1,4 +1,3 @@
-const http= require('http');
 const { promisify } = require('util');
 const readdir = promisify(require('fs').readdir);
 const Discord = require('discord.js');
@@ -6,6 +5,7 @@ const modules = require('./modules/Logger');
 const RSSFeeds = require('./modules/RSSFeeds');
 const functions = require('./modules/functions');
 const Enmap = require('enmap');
+require('dotenv').config();
 
 const client = new Discord.Client();
 client.logger = modules;
@@ -14,10 +14,6 @@ client.commands = new Enmap();
 client.aliases = new Enmap();
 
 console.log(`We are in ${process.env.ENV}`);
-
-http.createServer(function(req, res) {
-    res.end();
-}).listen(8080);
 
 const init = async () => {
     const cmdFiles = await readdir("./commands/");
