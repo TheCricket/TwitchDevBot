@@ -6,9 +6,7 @@ module.exports = async (client, reaction) => {
         if(message.embeds[0].description.toLowerCase().includes('notifications')) {
           client.guilds.last().roles.array().forEach(role => {
             if(role.name === 'Notifications') {
-              client.guilds.last().fetchMember(reaction.users.array()[0]).then(member => {
-                member.removeRole(role);
-              });
+              removeRankForUsers(client, message, role);
             }
           })
         }
@@ -16,13 +14,31 @@ module.exports = async (client, reaction) => {
         if(message.embeds[0].description.toLowerCase().includes('notifications')) {
           client.guilds.last().roles.array().forEach(role => {
             if(role.name === 'Notifications') {
-              client.guilds.last().fetchMember(reaction.users.array()[0]).then(member => {
-                member.addRole(role);
-              });
+              giveRankForUsers(client, message, role);
             }
           })
         }
       }
     }
   }
+};
+
+const giveRankForUsers = (client, message, role) => {
+  message.reactions.forEach(react => {
+    react.users.array().forEach(user => {
+      client.guilds.last().fetchMember(user).then(member => {
+        member.addRole(role);
+      })
+    })
+  });
+};
+
+const removeRankForUsers = (client, message, role) => {
+  message.reactions.forEach(react => {
+    react.users.array().forEach(user => {
+      client.guilds.last().fetchMember(user).then(member => {
+        member.addRole(role);
+      })
+    })
+  });
 };
