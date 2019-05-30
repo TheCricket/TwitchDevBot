@@ -37,7 +37,7 @@ const removeRankForUsers = (client, message, role) => {
   message.reactions.forEach(react => {
     react.users.array().forEach(user => {
       client.guilds.last().fetchMember(user).then(member => {
-        member.addRole(role);
+        member.removeRole(role);
       })
     })
   });
