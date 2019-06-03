@@ -1,17 +1,20 @@
 const Sequelize = require('sequelize');
-const TicketModel = require('./models/TicketModel');
+const modelFolder = require('./models');
+const models = {};
 
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
+const connection = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
   host: process.env.DB_HOST,
   dialect: 'postgresql'
 });
 
-const Ticket = TicketModel(sequelize, Sequelize);
+for(const model in modelFolder) {
+  models[model] = connection.define(model, modelFolder[name]);
+}
 
-sequelize.sync({force: true}).then(() => {
+connection.sync({force: true}).then(() => {
   console.log('Database & tables created!');
 });
 
 module.exports = {
-  Ticker
+  connection, models
 };
