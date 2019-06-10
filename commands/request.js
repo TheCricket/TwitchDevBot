@@ -11,8 +11,8 @@ exports.conf = {
 };
 
 exports.help = {
-  name: 'ticket',
+  name: 'request',
   category: Categories.HELP,
-  description: 'Create a Ticket for us to help you out',
-  usage: '!ticket <reason>'
+  description: 'Create a request for specific roles',
+  usage: '!request <reason>'
 };
