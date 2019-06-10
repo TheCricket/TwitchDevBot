@@ -29,19 +29,16 @@ exports.run = (client, message, args) => {
             message.channel.send(output, {code:"asciidoc", split: {char: "\u200b"}});
         });
     } else {
-        const sorted = client.commands.array().sort((p, c) => p.help.category > c.help.category ? 1 : p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1);
-        sorted.forEach(c => {
-            client.guilds.last().fetchMember(message.author).then(member => {
-                if (Permissions.userHasRole(member, c.conf.ranks)) {
-                    let command = args[0];
-                    if (client.commands.has(command)) {
-                        command = client.commands.get(command);
-                        message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage:: ${command.help.usage}\naliases:: ${command.conf.aliases.join(
-                          ', ')}\n= ${command.help.name} =`, { code: "asciidoc" });
-                    }
-                }
-            });
+      let command = args[0];
+      if (client.commands.has(command)) {
+        command = client.commands.get(command);
+        client.guilds.last().fetchMember(message.author).then(member => {
+          if (Permissions.userHasRole(member, command.conf.ranks)) {
+            message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage:: ${command.help.usage}\naliases:: ${command.conf.aliases.join(
+              ', ')}\n= ${command.help.name} =`, { code: "asciidoc" });
+          }
         });
+      }
     }
 };
 
