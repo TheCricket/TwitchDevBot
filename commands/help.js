@@ -9,19 +9,25 @@ exports.run = (client, message, args) => {
         let currentCategory = "";
         let output = `= Command List =\n\n[Use !help <commandname> for details]\n`;
         const sorted = client.commands.array().sort((p, c) => p.help.category > c.help.category ? 1 : p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1);
-        sorted.forEach(c => {
-          const cat = c.help.category;
-          if(currentCategory !== cat) {
-              output += `\u200b\n== ${cat} ==\n`;
-              currentCategory = cat;
-          }
-          client.guilds.last().fetchMember(message.author).then(member => {
-              if(Permissions.userHasRole(member, c.conf.ranks)) {
-                  output += `!${c.help.name}${" ".repeat(longest - c.help.name.length)} :: ${c.help.description}\n`;
-              }
-          });
+        let promise = new Promise((resolve, reject) => {
+            let d = 0;
+            sorted.forEach(c => {
+                client.guilds.last().fetchMember(message.author).then(member => {
+                    const cat = c.help.category;
+                    if(currentCategory !== cat) {
+                        output += `\u200b\n== ${cat} ==\n`;
+                        currentCategory = cat;
+                    }
+                    if(Permissions.userHasRole(member, c.conf.ranks)) {
+                        output += `!${c.help.name}${" ".repeat(longest - c.help.name.length)} :: ${c.help.description}\n`;
+                    }
+                });
+                d++;
+            });
+            if(d === sorted.length) resolve();
+        }).then(()=> {
+            message.channel.send(output, {code:"asciidoc", split: {char: "\u200b"}});
         });
-        message.channel.send(output, {code:"asciidoc", split: {char: "\u200b"}});
     } else {
         client.guilds.last().fetchMember(message.author).then(member => {
             if(Permissions.userHasRole(member, c.conf.ranks)) {

@@ -4,7 +4,7 @@
   "description": "[![](https://img.shields.io/discord/504015559252377601.svg)](https://discordapp.com/invite/G8UQqNy) [![Pending Pull-Requests](http://githubbadges.herokuapp.com/thecricket/twitchdevbot/pulls.svg?style=flat)](https://github.com/thecricket/twitchdevbot/pulls) [![Open Issues](http://githubbadges.herokuapp.com/thecricket/twitchdevbot/issues.svg?style=flat)](https://github.com/thecricket/twitchdevbot/issues)",
   "main": "index.js",
   "scripts": {
-    "startBot": "nodemon index.js --config",
+    "startBot": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,7 +18,6 @@
   },
   "homepage": "https://github.com/TheCricket/TwitchDevBot#readme",
   "dependencies": {
-    "@types/sequelize": "^4.28.3",
     "chalk": "^2.4.2",
     "discord.js": "^11.4.2",
     "dotenv": "^8.0.0",
@@ -27,8 +26,6 @@
     "moment": "latest",
     "node-webhooks": "^1.4.2",
     "nodemon": "latest",
-    "pg": "^7.11.0",
-    "rss-parser": "^3.6.3",
-    "sequelize": "^5.8.6"
+    "rss-parser": "^3.6.3"
   }
 }

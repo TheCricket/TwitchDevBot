@@ -28,6 +28,6 @@ exports.conf = {
 exports.help = {
     name: 'unstaff',
     category: Categories.UTILITIES,
-    description: 'Remove a user= require(staff',
+    description: 'Remove a user from staff',
     usage: '!unstaff @user'
 };

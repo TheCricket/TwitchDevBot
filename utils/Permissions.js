@@ -1,7 +1,15 @@
 module.exports.userHasRole = (member, roles) => {
-    return member.roles.some(role => {
-        return roles.includes(role.name);
-    });
+    if(roles.length === 0) return true;
+    let bool = false;
+    let iterator = member.roles.values();
+    for(let c = 0; c < member.roles.size; c++) {
+        let name = iterator.next().value.name;
+        if(roles.includes(name)) {
+            console.log(`${roles} includes ${name}`);
+            bool = true;
+        }
+    }
+    return bool;
 };
 
 module.exports.appendRoles = (...args) => {
