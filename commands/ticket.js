@@ -14,5 +14,5 @@ exports.help = {
   name: 'ticket',
   category: Categories.HELP,
   description: 'Create a Ticket for us to help you out',
-  usage: '!ticket'
+  usage: '!ticket <reason>'
 };
