@@ -49,6 +49,7 @@ router.get('/auth', (req, res) => {
                 }
             });
         }
+        res.redirect('link.twitch.tv/devchat');
     }
 });
 
