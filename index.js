@@ -4,8 +4,14 @@ const Discord = require('discord.js');
 const modules = require('./modules/Logger');
 const RSSFeeds = require('./modules/RSSFeeds');
 const functions = require('./modules/functions');
+const express = require('express');
+const router = require('router');
 const Enmap = require('enmap');
 require('dotenv').config();
+
+const app = express();
+const port = 3000;
+app.use('/', router);
 
 const client = new Discord.Client();
 client.logger = modules;
@@ -16,7 +22,7 @@ client.aliases = new Enmap();
 console.log(`We are in ${process.env.ENV}`);
 
 const init = async () => {
-    const cmdFiles = await readdir("./commands/");
+    const cmdFiles = await readdir('./commands/');
     client.logger.log( `Loading a total of ${cmdFiles.length} commands.`);
     cmdFiles.forEach(f => {
        if(!f.endsWith('.js')) return;
@@ -24,7 +30,7 @@ const init = async () => {
        if(response) console.log(response);
     });
 
-    const evtFiles = await readdir("./events/");
+    const evtFiles = await readdir('./events/');
     client.logger.log( `Loading a total of ${evtFiles.length} events.`);
     evtFiles.forEach(f => {
         const eventName = f.split('.')[0];
@@ -34,6 +40,7 @@ const init = async () => {
     });
 
     client.login(process.env.TOKEN);
+    router.setClient(client);
 };
 
 RSSFeeds.listen(client);

@@ -21,7 +21,7 @@ exports.run = async (client, message, args) => {
 };
 
 exports.conf = {
-  enabled: true,
+  enabled: false,
   aliases: [],
   ranks: permissions,
 };
