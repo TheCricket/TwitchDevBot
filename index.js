@@ -43,6 +43,7 @@ app.get('/auth', (req, res) => {
                 const json = JSON.parse(response.data);
                 if (json.data !== []) {
                     client.fetchUser(discordID).then((user) => {
+                        logger.log(`Adding role to ${user.tag}`);
                         client.guilds.last().fetchMember(user).then((member) => {
                             client.guilds.last().roles.forEach(role => {
                                 if(role.name === 'Extension Developer') {
@@ -58,6 +59,7 @@ app.get('/auth', (req, res) => {
                 const json = JSON.parse(response.data);
                 if (json.data !== []) {
                     client.fetchUser(discordID).then((user) => {
+                        logger.log(`Adding role to ${user.tag}`);
                         client.guilds.last().fetchMember(user).then((member) => {
                             client.guilds.last().roles.forEach(role => {
                                 if(role.name === 'Game Developer') {
