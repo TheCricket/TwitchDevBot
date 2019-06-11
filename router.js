@@ -8,6 +8,7 @@ router.get('/auth', (req, res) => {
     if(req.query.code !== null) {
         const url = TwitchAPI.fetchAccessTokenURL(req.query.code, req.query.state);
         axios.post(url);
+        res.redirect('link.twitch.tv/devchat');
     } else {
         const json = req.body;
         const access_token = json.access_token;
