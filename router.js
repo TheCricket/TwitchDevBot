@@ -4,7 +4,7 @@ const TwitchAPI = require('./utils/TwitchAPI');
 const axios = require('axios');
 let client;
 
-router.get('/auth/:discordID', (req, res) => {
+router.get('/auth', (req, res) => {
     if(req.query.code !== null) {
         const url = TwitchAPI.fetchAccessTokenURL(req.query.code, req.query.state);
         axios.post(url);
@@ -16,12 +16,13 @@ router.get('/auth/:discordID', (req, res) => {
                 'Authorization': `Bearer ${access_token}`
             }
         };
-
-        if (req.query.state === 'extensions') {
+        const type = req.query.state.split('+')[0];
+        const discordID = req.query.state.split('+')[1];
+        if (type === 'extensions') {
             axios.get('https://api.twitch.tv/helix/analytics/extensions', config).then((response) => {
                 const json = JSON.parse(response.data);
                 if (json.data !== []) {
-                    client.fetchUser(req.params.discordID).then((user) => {
+                    client.fetchUser(discordID).then((user) => {
                         client.guilds.last().fetchMember(user).then((member) => {
                             client.guilds.last().roles.forEach(role => {
                                 if(role.name === 'Extension Developer') {
@@ -36,7 +37,7 @@ router.get('/auth/:discordID', (req, res) => {
             axios.get('https://api.twitch.tv/helix/analytics/games', config).then((response) => {
                 const json = JSON.parse(response.data);
                 if (json.data !== []) {
-                    client.fetchUser(req.params.discordID).then((user) => {
+                    client.fetchUser(discordID).then((user) => {
                         client.guilds.last().fetchMember(user).then((member) => {
                             client.guilds.last().roles.forEach(role => {
                                 if(role.name === 'Game Developer') {
