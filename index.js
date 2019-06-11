@@ -5,7 +5,7 @@ const modules = require('./modules/Logger');
 const RSSFeeds = require('./modules/RSSFeeds');
 const functions = require('./modules/functions');
 const express = require('express');
-const router = require('router');
+const router = express.Router();
 const Enmap = require('enmap');
 require('dotenv').config();
 
