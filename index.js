@@ -6,6 +6,7 @@ const RSSFeeds = require('./modules/RSSFeeds');
 const functions = require('./modules/functions');
 const express = require('express');
 const router = express.Router();
+const Router = require('./router');
 const Enmap = require('enmap');
 require('dotenv').config();
 
@@ -40,7 +41,7 @@ const init = async () => {
     });
 
     client.login(process.env.TOKEN);
-    router.setClient(client);
+    Router.setClient(client);
 };
 
 RSSFeeds.listen(client);
