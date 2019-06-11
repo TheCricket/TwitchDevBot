@@ -12,7 +12,7 @@ require('dotenv').config();
 
 const app = express();
 const port = 3000;
-app.use('/', router);
+app.use('/auth', router);
 app.listen(port, () => console.log(`TwitchDevBot listening on port ${port}!`));
 
 const client = new Discord.Client();
