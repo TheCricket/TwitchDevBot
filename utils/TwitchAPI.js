@@ -1,9 +1,9 @@
 exports.fetchAuthURLForExtensions = (discordID) => {
-    return `https://id.twitch.tv/oauth2/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI.append(discordID)}&response_type=code&scope=${process.env.SCOPE_EXTENSIONS}&state=extensions`;
+    return `https://id.twitch.tv/oauth2/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}/${discordID}&response_type=code&scope=${process.env.SCOPE_EXTENSIONS}&state=extensions`;
 };
 
 exports.fetchAuthURLForGames = (discordID) => {
-    return `https://id.twitch.tv/oauth2/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI.append(discordID)}&response_type=code&scope=${process.env.SCOPE_GAMES}&state=games`;
+    return `https://id.twitch.tv/oauth2/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}/${discordID}&response_type=code&scope=${process.env.SCOPE_GAMES}&state=games`;
 };
 
 exports.fetchAccessTokenURL = (code, state) => {
