@@ -53,15 +53,15 @@ app.get('/auth/success', (req, res) => {
                             member.addRole(role.id);
                             member.createDM().then((channel) => {
                                 channel.send('Added role: Extension Developer');
+                                res.redirect('http://link.twitch.tv/devchat');
                             })
-
                         }
                     });
                 });
             });
         }
     }).catch((error) => {
-
+        res.redirect('http://link.twitch.tv/devchat');
     });
 
     axios.get('https://api.twitch.tv/helix/analytics/games', config).then((response) => {
@@ -76,6 +76,7 @@ app.get('/auth/success', (req, res) => {
                             member.addRole(role.id);
                             member.createDM().then((channel) => {
                                 channel.send('Added role: Game Developer');
+                                res.redirect('http://link.twitch.tv/devchat');
                             })
                         }
                     });
@@ -83,9 +84,8 @@ app.get('/auth/success', (req, res) => {
             });
         }
     }).catch((error) => {
-
+        res.redirect('http://link.twitch.tv/devchat');
     });
-    res.redirect('http://link.twitch.tv/devchat');
 });
 
 app.get('/auth/failure', (req, res) => {
