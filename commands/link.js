@@ -51,6 +51,10 @@ app.get('/auth/success', (req, res) => {
                     client.guilds.last().roles.forEach(role => {
                         if(role.name === 'Extension Developer') {
                             member.addRole(role.id);
+                            member.createDM().then((channel) => {
+                                channel.send('Added role: Extension Developer');
+                            })
+
                         }
                     });
                 });
@@ -70,6 +74,9 @@ app.get('/auth/success', (req, res) => {
                     client.guilds.last().roles.forEach(role => {
                         if(role.name === 'Game Developer') {
                             member.addRole(role.id);
+                            member.createDM().then((channel) => {
+                                channel.send('Added role: Game Developer');
+                            })
                         }
                     });
                 });
