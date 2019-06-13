@@ -99,7 +99,7 @@ exports.run = async (c, message, args) => {
     client = c;
     message.author.createDM().then((channel) => {
         id = message.author.id;
-        channel.send('http://217beb77.ngrok.io/auth/twitch');
+        channel.send('http://167.99.15.68:3000/auth/twitch');
     });
 };
 
