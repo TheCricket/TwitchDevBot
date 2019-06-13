@@ -42,7 +42,6 @@ app.get('/auth/success', (req, res) => {
         }
     };
     axios.get('https://api.twitch.tv/helix/analytics/extensions', config).then((response) => {
-        response.acknowledge();
         if(response.status === 200) {
             console.log(id);
             client.fetchUser(id).then((user) => {
@@ -61,7 +60,6 @@ app.get('/auth/success', (req, res) => {
             });
         }
     }).catch((error) => {
-        res.redirect('http://link.twitch.tv/devchat');
     });
 
     axios.get('https://api.twitch.tv/helix/analytics/games', config).then((response) => {
@@ -84,7 +82,6 @@ app.get('/auth/success', (req, res) => {
             });
         }
     }).catch((error) => {
-        res.redirect('http://link.twitch.tv/devchat');
     });
 });
 
