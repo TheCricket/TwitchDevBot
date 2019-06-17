@@ -58,6 +58,13 @@ app.get('/auth/success', (req, res) => {
                     });
                 });
             });
+        } else {
+            client.guilds.last().fetchMember(user).then((member) => {
+                member.createDM().then((channel) => {
+                    channel.send(`It seems you don't have a released extension`);
+                    res.redirect('http://link.twitch.tv/devchat');
+                })
+            });
         }
     }).catch((error) => {
     });
@@ -79,6 +86,13 @@ app.get('/auth/success', (req, res) => {
                         }
                     });
                 });
+            });
+        } else {
+            client.guilds.last().fetchMember(user).then((member) => {
+                member.createDM().then((channel) => {
+                    channel.send(`It seems you don't have a released game`);
+                    res.redirect('http://link.twitch.tv/devchat');
+                })
             });
         }
     }).catch((error) => {
