@@ -20,7 +20,7 @@ passport.deserializeUser((user, done) => {
     done(null, user);
 });
 
-passport.use('twitch', new OAuth2Strategy({
+passport.use('twitch_extension', new OAuth2Strategy({
     authorizationURL: 'https://id.twitch.tv/oauth2/authorize',
     tokenURL: 'https://id.twitch.tv/oauth2/token',
     clientID: process.env.CLIENT_ID,
@@ -33,8 +33,25 @@ passport.use('twitch', new OAuth2Strategy({
     done(null, profile);
 }));
 
-app.get('/auth/twitch', passport.authenticate('twitch', {scope: process.env.SCOPE}));
-app.get('/auth/twitch/callback', passport.authenticate('twitch', {successRedirect: `/auth/success`, failureRediredct: '/auth/failure'}));
+passport.use('twitch_game', new OAuth2Strategy({
+    authorizationURL: 'https://id.twitch.tv/oauth2/authorize',
+    tokenURL: 'https://id.twitch.tv/oauth2/token',
+    clientID: process.env.CLIENT_ID_GAMES,
+    clientSecret: process.env.CLIENT_SECRET_GAMES,
+    callbackURL: process.env.REDIRECT_URI_GAMES,
+    state: id
+}, (accessToken, refreshToken, profile, done) => {
+    profile.accessToken = accessToken;
+    profile.refreshToken = refreshToken;
+    done(null, profile);
+}));
+
+app.get('/auth/twitch', passport.authenticate('twitch_extension', {scope: process.env.SCOPE}));
+app.get('/auth/twitch/callback', passport.authenticate('twitch_extension', {successRedirect: `/auth/success`, failureRediredct: '/auth/failure'}));
+
+app.get('/auth/game', passport.authenticate('twitch_game', {scope: process.env.SCOPE}));
+app.get('/auth/game/callback', passport.authenticate('twitch_game', {successRedirect: `/auth/game/success`, failureRediredct: '/auth/game/failure'}));
+
 app.get('/auth/success', (req, res) => {
     const config = {
         headers: {
@@ -68,7 +85,14 @@ app.get('/auth/success', (req, res) => {
         }
     }).catch((error) => {
     });
+});
 
+app.get('/auth/game/success', (req, res) => {
+    const config = {
+        headers: {
+            'Authorization': `Bearer ${req.session.passport.user.accessToken}`
+        }
+    };
     axios.get('https://api.twitch.tv/helix/analytics/games', config).then((response) => {
         response.acknowledge();
         if(response.status === 200) {
@@ -103,26 +127,35 @@ app.get('/auth/failure', (req, res) => {
 
 });
 
+app.get('/auth/game/failure', (req, res) => {
+
+});
+
 app.listen(port, () => console.log(`TwitchDevBot listening on port ${port}!`));
 
 
 exports.run = async (c, message, args) => {
     client = c;
     message.author.createDM().then((channel) => {
-        id = message.author.id;
-        channel.send('http://167.99.15.68:3000/auth/twitch');
+        if(args.length === 1) {
+            id = message.author.id;
+            channel.send('http://167.99.15.68:3000/auth/game');
+        } else {
+            id = message.author.id;
+            channel.send('http://167.99.15.68:3000/auth/twitch');
+        }
     });
 };
 
 exports.conf = {
     enabled: true,
     aliases: [],
-    ranks: [],
+    ranks: []
 };
 
 exports.help = {
     name: 'link',
     category: Categories.UTILITIES,
-    description: `Link your Twitch Account! You can specifically link your account as 'game' or 'extension' by adding the type or leave it blank to simply link accounts`,
+    description: `Have you released an extension? Link your account with this command to give yourself a special badge! If you've released a game do '!link game' instead :)`,
     usage: '!link <type>'
 };
