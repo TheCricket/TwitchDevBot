@@ -25,3 +25,4 @@ module.exports.MOD = 'Moderator';
 module.exports.DEV = ['Developer', 'Extension Developer', 'Game Developer'];
 module.exports.BROADCASTER = 'Broadcaster';
 module.exports.VANITY = ['PubSub King', 'TwitchCon 2019', 'Dev Tour 2019', 'Capitol Royale Hackathon 2018', 'Dev Day / TwitchCon 2018', 'Twitch Prime King'];
+module.exports.ALL = appendRoles(OWNER, STAFF, ADMIN, MOD, DEV, BROADCASTER, VANITY);

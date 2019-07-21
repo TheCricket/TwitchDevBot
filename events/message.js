@@ -8,6 +8,15 @@ module.exports = async (client, message) => {
     return;
   }
 
+  client.guilds.last().fetchMember(message.author).then((member) => {
+    if(message.content.toLowerCase().includes('twitch.tv/') && !Permissions.userHasRole(member, Permissions.ALL) && message.channel.name.includes('self-promotion')) {
+      message.delete().then(msg => {
+        console.log(`Deleted message from ${msg.author.username}`);
+        msg.channel.send(`Hey there ${msg.author} this channel is for people who have created something awesome and want to share it with the community. For more information on channels you can always check the channel topic!`);
+      })
+    }
+  });
+
   if(message.guild) {
     if (!message.content.startsWith('!')) return;
 
