@@ -5,6 +5,7 @@ const modules = require('./modules/Logger');
 const RSSFeeds = require('./modules/RSSFeeds');
 const functions = require('./modules/functions');
 const Enmap = require('enmap');
+const Updater = require('./utils/updateTitle');
 require('dotenv').config();
 
 const client = new Discord.Client();
@@ -35,6 +36,11 @@ const init = async () => {
 
     client.login(process.env.TOKEN);
 };
+
+setInterval(() => {
+    Updater.updateTime(client)
+}, 60 * 1000);
+Updater.updateTime(client);
 
 RSSFeeds.listen(client);
 init();
