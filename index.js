@@ -35,12 +35,12 @@ const init = async () => {
     });
 
     client.login(process.env.TOKEN);
-};
 
-setInterval(() => {
-    Updater.updateTime(client)
-}, 60 * 1000);
-Updater.updateTime(client);
+    setInterval(() => {
+        Updater.updateTime(client)
+    }, 60 * 1000);
+    Updater.updateTime(client);
+};
 
 RSSFeeds.listen(client);
 init();
