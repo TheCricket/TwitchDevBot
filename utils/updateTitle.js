@@ -33,7 +33,7 @@ module.exports.updateTime = (client) => {
         client.user.setActivity(`TwitchCon is ${time.hours} hours and ${time.minutes} minutes away!`, { type: "PLAYING" });
       }
     } else {
-      client.user.setActivity(`TwitchCon is ${time.days} days away!`, { type: "PLAYING" });
+      client.user.setActivity(`TwitchCon is ${time.days} days and ${time.hours} hours away!`, { type: "PLAYING" });
     }
   }
 };
