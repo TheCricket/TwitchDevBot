@@ -29,7 +29,11 @@ exports.parseBlog = function(client) {
             } else {
                 //Send message to announcements
                 lastBlogPost = feed.items[0];
-                client.channels.get(`${process.env.ENV === 'development' ? botTesting : announcements}`).send(EmbedBuilder.buildRichEmbed(lastBlogPost.link, lastBlogPost.title, '', lastBlogPost.creator, '', '', 'Brought to you by blog.twitch.tv'));
+                try {
+                    client.channels.get(`${process.env.ENV === 'development' ? botTesting : announcements}`).send(EmbedBuilder.buildRichEmbed(lastBlogPost.link, lastBlogPost.title, '', lastBlogPost.creator, '', '', 'Brought to you by blog.twitch.tv'));
+                } catch(e) {
+                    console.log(e);
+                }
             }
         }
     });
@@ -50,7 +54,11 @@ exports.parseForums = function(client) {
             } else {
                 //Send message to announcements
                 lastForumPost = feed.items[0];
-                client.channels.get(`${process.env.ENV === 'development' ? botTesting : announcements}`).send(EmbedBuilder.buildRichEmbed(lastForumPost.link, lastForumPost.title, lastForumPost.contentSnippet.substr(0, 237) + '...', lastForumPost.creator, '', '', 'Brought to you by the dev forums'));
+                try {
+                    client.channels.get(`${process.env.ENV === 'development' ? botTesting : announcements}`).send(EmbedBuilder.buildRichEmbed(lastForumPost.link, lastForumPost.title, lastForumPost.contentSnippet.substr(0, 237) + '...', lastForumPost.creator, '', '', 'Brought to you by the dev forums'));
+                } catch(e) {
+                    console.log(e);
+                }
             }
         }
     });
@@ -69,7 +77,11 @@ exports.parseStatus = function(client) {
                 client.logger.log('Checked status update posts but found the same one');
             } else {
                 lastStatusPost = feed.items[0];
-                client.channels.get(`${process.env.ENV === 'development' ? botTesting : announcements}`).send(EmbedBuilder.buildRichEmbed(lastStatusPost.link, lastStatusPost.title, lastStatusPost.contentSnippet.substr(0, 237) + '...', 'TwitchDev', '', '', 'Brought to you by dev.twitch.tv/status'));
+                try {
+                    client.channels.get(`${process.env.ENV === 'development' ? botTesting : announcements}`).send(EmbedBuilder.buildRichEmbed(lastStatusPost.link, lastStatusPost.title, lastStatusPost.contentSnippet.substr(0, 237) + '...', 'TwitchDev', '', '', 'Brought to you by dev.twitch.tv/status'));
+                } catch(e) {
+                    console.log(e);
+                }
             }
         }
     });
