@@ -13,12 +13,20 @@ module.exports.userHasRole = (member, roles) => {
 };
 
 module.exports.OWNER = 'Owner';
-module.exports.STAFF = ['Twitch Staff', 'Amazon Staff'];
+module.exports.STAFF = ['Twitch Staff', 'Amazon Staff', 'TwitchCon Hackathon Staff'];
 module.exports.ADMIN = 'Admin';
 module.exports.MOD = 'Moderator';
 module.exports.DEV = ['Developer', 'Extension Developer', 'Game Developer'];
 module.exports.BROADCASTER = 'Broadcaster';
-module.exports.VANITY = ['PubSub King', 'TwitchCon 2019', 'Dev Tour 2019', 'Capitol Royale Hackathon 2018', 'Dev Day / TwitchCon 2018', 'Twitch Prime King'];
+module.exports.VANITY = [
+  'PubSub King',
+  'TwitchCon Hackathon 2019',
+  'TwitchCon 2019',
+  'Dev Tour 2019',
+  'Capitol Royale Hackathon 2018',
+  'Dev Day / TwitchCon 2018',
+  'Twitch Prime King'
+];
 
 module.exports.appendRoles = (...args) => {
     let retVal = [];
