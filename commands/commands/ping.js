@@ -1,4 +1,4 @@
-const Categories = require('../utils/Categories');
+const Categories = require('../../core/utils/Categories');
 
 exports.run = async (client, message, args) => {
     const msg = await message.channel.send('Ping?');
@@ -7,7 +7,6 @@ exports.run = async (client, message, args) => {
 
 exports.conf = {
     enabled: true,
-    guildOnly: false,
     aliases: [],
     ranks: [],
 };

@@ -1,65 +1,57 @@
-const Discord = require('discord.js');
-const { promisify } = require('util');
-const readdir = promisify(require('fs').readdir);
-const Enmap = require('enmap');
-const http = require('http');
+require('dotenv').config();
+let cluster = require('cluster');
 
-const client = new Discord.Client();
-client.logger = require('./modules/Logger');
-require('./modules/functions')(client);
-const RSSFeeds = require('./modules/RSSFeeds');
-const WebHook = require('node-webhooks');
-const EmbedBuilder = require("./utils/EmbedBuilder");
+const MAIN = 1, SLACK = 2, HELP = 3, ANNOUNCEMENTS = 4;
 
-client.commands = new Enmap();
-client.aliases = new Enmap();
+if(cluster.isMaster) {
+  let numWorkers = require('os').cpus().length;
+  console.log(`Master cluster setting up ${numWorkers} workers...`);
 
-console.log(`We are in ${process.env.ENV}`);
+  for(let c = 0; c < 4; c++) {
+    cluster.fork();
+  }
 
-http.createServer(function(req, res) {
-    res.end();
-}).listen(8080);
+  cluster.on('online', worker => {
+    console.log(`Worker ${worker.process.pid} reporting for duty!`);
+  });
 
-const webHook = new WebHook();
-webHook.add('twitchAlerts', 'https://api.twitch.tv/helix/webhooks/hub').then(function() {
-    client.logger.log('Added webhooks hub');
-}).catch(function(err) {
-    client.logger.error(err);
-});
-webHook.trigger('twitchAlerts', {
-   'hub.callback': 'http://167.99.15.68:8080',
-    'hub.mode': 'subscribe',
-    'hub.topic': 'https://api.twitch.tv/helix/streams?user_id=141981764'
-    'hub.lease_seconds': '864000'
-});
-const emitter = webHook.getEmitter();
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`Worker ${worker.process.pid} died with error code: ${code}, and signal ${signal}`);
+    console.log(`Starting a new worker`);
+    cluster.fork();
+  });
 
-emitter.on('*', function(shortname, statusCode, body) {
-    const json = JSON.parse(body);
-    const data = json.data[0];
-    client.channels.get(`${process.env.ENV === 'development' ? '524833530656587777' : '523673395221495808'}`).send(EmbedBuilder.buildRichEmbed('https://www.twitch.tv/twitchdev', data.title, 'TwitchDev is now live!', 'TwitchDev', 'https://static-cdn.jtvnw.net/jtv_user_pictures/twitchdev-profile_image-d2f9d60c77c1505a-70x70.png', data.thumbnail_url));
-});
+  function restartWorkers() {
+    let wid, workerIds = [];
+    for(wid in cluster.workers) {
+      workerIds.push(wid);
+    }
 
-const init = async () => {
-    const cmdFiles = await readdir("./commands/");
-    client.logger.log( `Loading a total of ${cmdFiles.length} commands.`);
-    cmdFiles.forEach(f => {
-       if(!f.endsWith('.js')) return;
-       const response = client.loadCommand(f);
-       if(response) console.log(response);
+    workerIds.forEach(wid => {
+      cluster.workers[wid].send({
+        text: 'shutdown',
+        from: 'master'
+      });
+
+      setTimeout(() => {
+        if(cluster.workers[wid]) {
+          cluster.workers[wid].kill('SIGKILL');
+        }
+      }, 5000);
     });
+  }
+} else if(cluster.worker.id === MAIN) {
+  let commands = require('./commands/index');
+  commands.init();
+} else if(cluster.worker.id === SLACK) {
+  let slack = require('./internal/index');
+  slack.init();
+} else if(cluster.worker.id === HELP) {
+  let help = require('./help/index');
+  help.init();
+} else if(cluster.worker.id === ANNOUNCEMENTS) {
+  let announcements = require('./announcements/index');
+  announcements.init();
+} else {
 
-    const evtFiles = await readdir("./events/");
-    client.logger.log( `Loading a total of ${evtFiles.length} events.`);
-    evtFiles.forEach(f => {
-        const eventName = f.split('.')[0];
-        client.logger.log(`Loading Event: ${eventName}`);
-        const event = require(`./events/${f}`);
-        client.on(eventName, event.bind(null, client));
-    });
-
-    client.login(process.env.TOKEN);
-};
-
-RSSFeeds.listen();
-init();
+}

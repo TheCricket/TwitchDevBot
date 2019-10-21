@@ -22,7 +22,13 @@
     "enmap": "^4.8.1",
     "node-webhooks": "^1.4.2",
     "nodemon": "latest",
-    "rss-parser": "^3.6.3"
+    "rss-parser": "^3.6.3",
+    "express": "latest",
+    "dotenv": "latest",
+    "passport": "latest",
+    "express-session": "latest",
+    "passport-oauth": "latest",
+    "axios": "latest"
   },
   "devDependencies": {
     "moment": "^2.24.0"
