@@ -1,8 +1,8 @@
-module.exports = (client) => {
+module.exports = (baseDir, client) => {
   client.loadCommand = (commandName) => {
     try {
       client.logger.log(`Loading Command: ${commandName}`);
-      const props = require(`../commands/${commandName}`);
+      const props = require(`../../${baseDir}/commands/${commandName}`);
       if(props.init) props.init(client);
       client.commands.set(props.help.name, props);
       props.conf.aliases.forEach(alias => {

@@ -1,9 +1,6 @@
 .gradle
 .idea
-build
-out
-logs
 .iml
 .env
-logback.xml
 node_modules
+data

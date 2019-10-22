@@ -7,11 +7,10 @@ const Logger = require('./modules/Logger');
 
 let client = new Discord.Client();
 client.logger = Logger;
-functions(client);
 client.commands = new Enmap();
 client.aliases = new Enmap();
-
 module.exports.createBot = async(baseDir) => {
+  functions(baseDir, client);
   const cmdFiles = await readdir(`./${baseDir}/commands/`);
   cmdFiles.forEach(f => {
     if(!f.endsWith('.js')) return;
