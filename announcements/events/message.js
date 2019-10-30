@@ -4,7 +4,7 @@ module.exports = async (client, message) => {
   if(message.author.bot) return;
 
   if(message.guild) {
-    if (!message.content.startsWith('!')) return;
+    if (!message.content.startsWith('%')) return;
 
     const args = message.content.slice(1).trim().split(' ');
     const command = args.shift().toLowerCase();
@@ -31,7 +31,7 @@ module.exports = async (client, message) => {
       cmd.run(client, message, args);
     }
   } else if(process.env.ENV === 'development') {
-    if (!message.content.startsWith('!')) return;
+    if (!message.content.startsWith('%')) return;
 
     const args = message.content.slice(1).trim().split(' ');
     const command = args.shift().toLowerCase();

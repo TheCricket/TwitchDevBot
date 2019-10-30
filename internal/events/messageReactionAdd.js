@@ -19,9 +19,9 @@ module.exports = async (client, reaction) => {
             data: {
             'attachments': [
               {
-                'fallback': `${member.nickname} added feedback from ${message.channel}`,
+                'fallback': `${member.displayName} added feedback from ${message.channel.name}`,
                 'color': '#772CE8',
-                'pretext': `${member.nickname} added feedback from ${message.channel}`,
+                'pretext': `${member.displayName} added feedback from ${message.channel.name}`,
                 'author_name': `${message.author.tag}`,
                 'author_icon': `${message.author.avatarURL}`,
                 'text': `${message}${urls}`,
