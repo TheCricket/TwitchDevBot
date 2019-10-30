@@ -4,6 +4,7 @@
   "description": "[![](https://img.shields.io/discord/504015559252377601.svg)](https://discordapp.com/invite/G8UQqNy) [![Pending Pull-Requests](http://githubbadges.herokuapp.com/thecricket/twitchdevbot/pulls.svg?style=flat)](https://github.com/thecricket/twitchdevbot/pulls) [![Open Issues](http://githubbadges.herokuapp.com/thecricket/twitchdevbot/issues.svg?style=flat)](https://github.com/thecricket/twitchdevbot/issues)",
   "main": "index.js",
   "scripts": {
+    "startBot": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
