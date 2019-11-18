@@ -26,6 +26,12 @@ module.exports.init = () => {
           case MessageType.REQUEST_CREATED:
             addRequest();
             break;
+          case MessageType.ADD_MESSAGE:
+            updateMessageCount(true);
+            break;
+          case MessageType.REMOVE_MESSAGE:
+            updateMessageCount(false);
+            break;
           default:
             Logger.warn(`Someone sent a message with type ${msg.content['type']}`);
             break;
@@ -50,6 +56,24 @@ const updateMemberCount = (adding) => {
       }
     }).then(() => {
       Logger.log(`Updated member count for ${moment().format('yyyy-MM-dd')}`);
+    });
+  });
+};
+
+const updateMessageCount = (adding) => {
+  Database.Analytics.findAll({
+    where: {
+      date: moment().format('yyyy-MM-dd')
+    }
+  }).then((analytics) => {
+    Database.Analytics.update({
+      messageCount: adding? analytics[0].messageCount + 1 : analytics[0].messageCount - 1
+    }, {
+      where: {
+        date: moment().format('yyyy-MM-dd')
+      }
+    }).then(() => {
+      Logger.log(`Updated message count for ${moment().format('yyyy-MM-dd')}`);
     });
   });
 };

@@ -38,8 +38,8 @@ Activity.init({
     type: Sequelize.INTEGER,
     allowNull: false
   },
-  avgMessageCount: {
-    type: Sequelize.DOUBLE,
+  messageCount: {
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   avgOnlineUsers: {
@@ -67,7 +67,39 @@ Activity.init({
   sequelize, modelName: 'activity'
 });
 
-module.exports = {Members, Activity};
+class Channels extends Model {}
+Channels.init({
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  messageCount: {
+    type: Sequelize.INTEGER,
+    allowNull: false
+  },
+  createdAt: {
+    type: Sequelize.DATE,
+    allowNull: false
+  },
+  archived: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
+  },
+  archivedAt: {
+    type: Sequelize.DATE,
+    allowNull: true
+  },
+  isVoice: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
+  }
+}, {
+  sequelize, modelName: 'channels'
+});
+
+module.exports = {Members, Activity, Channels};
 module.exports.init = () => {
   Members.sync({force: true}).then(() => {
     Logger.log('Members synced');
@@ -76,4 +108,8 @@ module.exports.init = () => {
   Activity.sync({force: true}).then(() => {
     Logger.log('Activity synced');
   });
+
+  Channels.sync({force: true}).then(() => {
+    Logger.log('Channels synced');
+  })
 };
