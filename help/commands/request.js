@@ -1,5 +1,5 @@
 const Categories = require('../../core/utils/Categories');
-const MessageBroker = require('../core/broker/Client');
+const MessageBroker = require('../../core/broker/Client');
 
 exports.run = async (client, message, args) => {
   let guild = client.guilds.last();

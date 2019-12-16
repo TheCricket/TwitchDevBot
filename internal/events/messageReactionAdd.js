@@ -1,5 +1,5 @@
 const axios = require('axios');
-const MessageBroker = require('../core/broker/Client');
+const MessageBroker = require('../../core/broker/Client');
 
 module.exports = async (client, reaction) => {
   if(reaction.emoji.id === '575729276863643649' || reaction.emoji.id === '575908465193517066') {
