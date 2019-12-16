@@ -1,4 +1,4 @@
-const Bot = require('../core/index');
+let Bot = require('../core/index');
 
 process.on('message', function(message) {
   if(message.type === `shutdown`) {
@@ -7,6 +7,6 @@ process.on('message', function(message) {
 });
 
 module.exports.init = async() => {
-  let client = await Bot.createBot('help');
-  client.login(process.env.help_token);
+  let client = await Bot.createBot('analytics');
+  client.login(process.env.analytics_token);
 };

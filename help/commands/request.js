@@ -1,4 +1,5 @@
 const Categories = require('../../core/utils/Categories');
+const MessageBroker = require('../core/broker/Client');
 
 exports.run = async (client, message, args) => {
   let guild = client.guilds.last();
@@ -35,6 +36,10 @@ exports.run = async (client, message, args) => {
       requestNum: requestNum
     });
     FileUtils.updateActiveRequests(active);
+    MessageBroker.sendMessage({
+      type: MessageBroker.MessageType.REQUEST_CREATED,
+      data: ''
+    });
   } else {
     message.channel.send('You already have an active request. You can find it at the top of the channel list');
   }
