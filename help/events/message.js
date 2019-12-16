@@ -4,6 +4,7 @@ module.exports = async (client, message) => {
   if(message.author.bot) return;
 
   if(message.guild) {
+    if (!message.content.startsWith('!request')) client.commands.get('request').run(client, message, message.content.slice(1).trim().split(' '));
     if (!message.content.startsWith('-')) return;
 
     const args = message.content.slice(1).trim().split(' ');
