@@ -3,7 +3,7 @@ const Logger = require('../modules/Logger');
 const MessageType = require('./MessageType');
 let channel;
 
-amqp.connect(process.env.host, (error0, connection) => {
+/*amqp.connect(process.env.host, (error0, connection) => {
   if(error0) throw error0;
   connection.createChannel(process.env.queue, (error1, channel) => {
     if(error1) throw error1;
@@ -15,7 +15,7 @@ amqp.connect(process.env.host, (error0, connection) => {
     connection.close();
     process.exit(0);
   }, 500);
-});
+});*/
 
 module.exports.sendMessage = (data) => {
   Logger.log(`Sending ${data} to master`);
