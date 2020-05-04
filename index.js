@@ -1,13 +1,13 @@
 require('dotenv').config();
 let cluster = require('cluster');
 
-const MAIN = 1, SLACK = 2, HELP = 3, ANNOUNCEMENTS = 4;
+const MAIN = 1, SLACK = 2, HELP = 3, ANNOUNCEMENTS = 4, SERVER = 5, ANALYTICS = 6;
 
 if(cluster.isMaster) {
   let numWorkers = require('os').cpus().length;
   console.log(`Master cluster setting up ${numWorkers} workers...`);
 
-  for(let c = 0; c < 4; c++) {
+  for(let c = 0; c < 5; c++) {
     cluster.fork();
   }
 
@@ -52,6 +52,8 @@ if(cluster.isMaster) {
 } else if(cluster.worker.id === ANNOUNCEMENTS) {
   let announcements = require('./announcements/index');
   announcements.init();
+} else if(cluster.worker.id === SERVER) {
+  
 } else {
 
 }

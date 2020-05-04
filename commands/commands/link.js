@@ -11,7 +11,7 @@ let client = {};
 const app = express();
 const port = 3000;
 app.use(session({secret: process.env.SESSION_SECRET}));
-app.use(passport.initialize());
+app.use(passport.initialize({}));
 passport.serializeUser((user, done) => {
     done(null, user);
 });

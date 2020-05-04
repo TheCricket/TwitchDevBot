@@ -22,7 +22,7 @@ exports.run = async (client, message, args) => {
   } else {
     let active = FileUtils.getActiveRequests();
     for(let c = 0; c < active.length; c++) {
-      if(active[c].requestNum == message.channel.name.split('-')[1]) {
+      if(active[c].requestNum === message.channel.name.split('-')[1]) {
         FileUtils.updateActiveRequests(active);
         active.splice(c, c);
         message.channel.delete();
