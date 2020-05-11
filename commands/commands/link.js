@@ -55,6 +55,7 @@ app.get('/auth/game/callback', passport.authenticate('twitch_game', {successRedi
 app.get('/auth/success', (req, res) => {
     const config = {
         headers: {
+            'Client-ID': process.env.CLIENT_ID,
             'Authorization': `Bearer ${req.session.passport.user.accessToken}`
         }
     };
@@ -90,6 +91,7 @@ app.get('/auth/success', (req, res) => {
 app.get('/auth/game/success', (req, res) => {
     const config = {
         headers: {
+            'Client-ID': process.env.CLIENT_ID,
             'Authorization': `Bearer ${req.session.passport.user.accessToken}`
         }
     };
