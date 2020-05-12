@@ -4,6 +4,7 @@ const readdir = promisify(require('fs').readdir);
 const Enmap = require('enmap');
 const functions = require('./modules/functions');
 const Logger = require('./modules/Logger');
+const RegexLoader = require('./utils/RegexLoader');
 
 let client = new Discord.Client();
 client.logger = Logger;
@@ -24,6 +25,8 @@ module.exports.createBot = async(baseDir) => {
     const event = require(`../${baseDir}/events/${f}`);
     client.on(eventName, event.bind(null, client));
   });
+
+  RegexLoader.init();
 
   return client;
 };
