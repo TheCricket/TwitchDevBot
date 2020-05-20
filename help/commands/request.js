@@ -21,7 +21,7 @@ exports.run = async (client, message, args) => {
       ]
     }).then(channel => {
       guild.channels.forEach(ch => {
-        if (ch.id === '588511676962308097') channel.setParent(ch);
+        if (ch.id === '708538405558026241') channel.setParent(ch);
       });
       guild.roles.forEach(role => {
         if (role.hasPermission('ADMINISTRATOR') || role.hasPermission('KICK_MEMBERS')) {
