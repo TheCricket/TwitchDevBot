@@ -16,6 +16,7 @@ Please read [CONTRIBUTING.md](https://github.com/TheCricket/TwitchDevBot/blob/ma
 
 * **[TheCricket](https://github.com/TheCricket)** - *Initial work*
 * **[Marenthyu](https://github.com/TheCricket/TwitchDevBot/commits?author=Marenthyu)** - *!bots command* - [Commit](https://github.com/TheCricket/TwitchDevBot/commit/e1fab10024d7dcbd649408b287ff2883eef531ca)
+* **[Dkamps18](https://github.com/Dkamps18)** - *Bug fixes*
 
 See also the list of [contributors](https://github.com/thecricket/twitchdevbot/contributors) who participated in this project.
 
