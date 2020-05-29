@@ -8,7 +8,7 @@ exports.run = async (client, message, args) => {
   } else if(args.length === 0) {
     message.channel.send('Please include a name');
   } else {
-    await message.channel.setName(args[0]);
+    await message.channel.setName(`${args[0]}-${message.channel.name.split('-')[1]}`); 
   }
 };
 
@@ -22,5 +22,5 @@ exports.help = {
   name: 'rename',
   category: Categories.UTILITIES,
   description: 'Rename a request',
-  usage: '!request [Name]'
+  usage: '!rename [Name]'
 };
