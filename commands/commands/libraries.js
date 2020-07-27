@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
 
 exports.conf = {
     enabled: true,
-    aliases: [],
+    aliases: ['!libs'],
     ranks: [],
 };
 
@@ -14,6 +14,5 @@ exports.help = {
     name: 'libraries',
     category: Categories.HELP,
     description: `Questions about a specific Twitch Library? This command will point you in the right direction!`,
-    usage: '!libraries',
-    aliases: ['!libs']
+    usage: '!libraries'
 };
