@@ -6,7 +6,7 @@ exports.run = async (client, message, args) => {
 
 exports.conf = {
     enabled: true,
-    aliases: ['!libs'],
+    aliases: ['libs'],
     ranks: [],
 };
 
