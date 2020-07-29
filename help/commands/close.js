@@ -14,7 +14,7 @@ exports.run = async (client, message, args) => {
           if(active[c].requestNum == requestNum) {
             FileUtils.updateActiveRequests(active);
             active.splice(c, c);
-            channel.delete();
+            channel.delete().then(console.log).catch(console.error);
           }
         }
       }
@@ -25,7 +25,7 @@ exports.run = async (client, message, args) => {
       if(active[c].requestNum == message.channel.name.split('-')[1]) {
         FileUtils.updateActiveRequests(active);
         active.splice(c, c);
-        message.channel.delete();
+        message.channel.delete().then(console.log).catch(console.error);
       }
     }
   }
