@@ -141,10 +141,10 @@ exports.run = async (c, message, args) => {
     message.author.createDM().then((channel) => {
         if(args.length === 1) {
             id = message.author.id;
-            channel.send('http://167.99.15.68:3000/auth/game');
+            channel.send(`http://${process.env.PUBLIC_LOCATION}:${port}/auth/game`);
         } else {
             id = message.author.id;
-            channel.send('http://167.99.15.68:3000/auth/twitch');
+            channel.send(`http://${process.env.PUBLIC_LOCATION}:${port}/auth/twitch`);
         }
     });
 };
