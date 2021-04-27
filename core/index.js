@@ -5,7 +5,7 @@ const Enmap = require('enmap');
 const functions = require('./modules/functions');
 const Logger = require('./modules/Logger');
 
-let client = new Discord.Client();
+client = new Discord.Client();
 client.logger = Logger;
 client.commands = new Enmap();
 client.aliases = new Enmap();

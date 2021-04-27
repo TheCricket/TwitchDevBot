@@ -3,10 +3,10 @@ const Permissions = require('../../core/utils/Permissions');
 module.exports = async (client, message) => {
   if(message.author.bot) return;
 
-  if(message.content.toLowerCase().includes('twitch') && message.content.toLowerCase().includes('sings')) {
-    message.channel.send(`Hey there ${message.author}! We don't provide support for TwitchSings. To get support for it head on over to <https://link.twitch.tv/help> and our friends at TwitchSupport will help you out!`);
-    return;
-  }
+  //if(message.content.toLowerCase().includes('twitch') && message.content.toLowerCase().includes('sings')) {
+  //  message.channel.send(`Hey there ${message.author}! We don't provide support for TwitchSings. To get support for it head on over to <https://link.twitch.tv/help> and our friends at TwitchSupport will help you out!`);
+  //  return;
+  //}
 
   /*client.guilds.last().fetchMember(message.author).then((member) => {
     if(message.content.toLowerCase().includes('twitch.tv/') && member.roles.size !== 0 && message.channel.name.includes('self-promotion')) {

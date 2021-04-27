@@ -1,7 +1,8 @@
 const Categories = require('../../core/utils/Categories');
 
 exports.run = async (client, message, args) => {
-    message.channel.send(`Hey there! Looks like you are asking questions about the IGDB API! You might want to join the IGDB Discord (#api channel) for Focussed help https://discord.gg/JKsh9R7`);
+//    message.channel.send(`Hey there! Looks like you are asking questions about the IGDB API! You might want to join the IGDB Discord (#api channel) for Focussed help https://discord.gg/JKsh9R7`);
+    message.channel.send('Hey there! Looks like you are asking questions about the IGDB! You might want to join the IGDB Discord (#api channel for API help #database for entry help) for Focussed help https://discord.gg/JKsh9R7');
 };
 
 exports.conf = {

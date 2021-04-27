@@ -1,12 +1,12 @@
 const Categories = require('../../core/utils/Categories');
 
-let client = {};
-
 const redis = require('redis');
 const redis_subscribe = redis.createClient();
 redis_subscribe.on('error', function (err) {
     console.error('REDIS Error', err);
 });
+
+console.log(client);
 
 redis_subscribe.on('message', (chan, message) => {
     if (chan == 'twitch_dev_assign_roles') {
@@ -23,7 +23,7 @@ redis_subscribe.on('message', (chan, message) => {
                                 channel.send('Added role: Extension Developer');
                             });
                         }
-                        if (payload.extensions && role.name === 'Game Developer') {
+                        if (payload.games && role.name === 'Game Developer') {
                             member.addRole(role.id);
                             member.createDM().then((channel) => {
                                 channel.send('Added role: Game Developer');
@@ -40,8 +40,6 @@ redis_subscribe.on('message', (chan, message) => {
 redis_subscribe.subscribe('twitch_dev_assign_roles');
 
 exports.run = async (c, message, args) => {
-    client = c;
-
     message.author.createDM().then((channel) => {
         if(args.length === 1) {
             id = message.author.id;
