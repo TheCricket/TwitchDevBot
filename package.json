@@ -35,6 +35,6 @@
     "sequelize": "^6.17.0"
   },
   "devDependencies": {
-    "moment": "^2.29.1"
+    "moment": "^2.29.2"
   }
 }
